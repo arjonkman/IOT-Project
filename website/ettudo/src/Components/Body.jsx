@@ -2,9 +2,8 @@ function Body() {
 	return (
 		<section className="Body mx-4 mt-2">
 			<div className="row">
-				<div className="col-md-6">
-					<canvas id="chart">
-					</canvas>
+				<div className="cold-md-12 text-center">
+					<h1>Test</h1>
 				</div>
 			</div>
 		</section>

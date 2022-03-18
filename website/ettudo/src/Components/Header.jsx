@@ -1,28 +1,19 @@
+import {Nav, Navbar, Container} from 'react-bootstrap'
+
 function Header() {
-	return (
-		<section className="Navbar">
-			<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-				<a className="navbar-brand mx-4" href="#">Ettudo</a>
-				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-					<span className="navbar-toggler-icon"></span>
-				</button>
-				<div className="collapse navbar-collapse" id="navbarNav">
-					<ul className="navbar-nav mx-auto">
-						<li className="nav-item active">
-							<a className="nav-link" href="#">Home</a>
-						</li>
-						<li className="nav-item">
-							<a className="nav-link" href="#">Analyse</a>
-						</li>
-						<li className="nav-item">
-							<a className="nav-link" href="#">Export</a>
-						</li>
-					</ul>
-				</div>
-			</nav>
-		</section>
-	)
+  return (
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="px-4">
+        <Navbar.Brand href="#home">Ettudo</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="#features">Home</Nav.Link>
+            <Nav.Link href="#pricing">Analyse</Nav.Link>
+			<Nav.Link href="#pricing">Export</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+    </Navbar>
+  )
 }
 
 export default Header
