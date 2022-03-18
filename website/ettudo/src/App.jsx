@@ -1,5 +1,7 @@
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+
 import Header from './Components/Header'
-import Body from './Components/Body'
+import Home from './Components/Home'
 
 // Import Bootstrap
 import 'bootstrap/scss/bootstrap.scss'
@@ -9,10 +11,18 @@ import './scss/bootstrap.scss'
 function App() {
 
   return (
-    <div className="App">
-      <Header />
-      <Body />
-    </div>
+    <Router>
+      <div className="App">
+        <Header/>
+        <section className="content">
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/analyse" element={<></>}/>
+            <Route path="/export" element={<></>}/>
+          </Routes>
+        </section>
+      </div>
+    </Router>
   )
 }
 
