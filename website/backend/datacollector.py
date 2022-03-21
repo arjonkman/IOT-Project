@@ -1,12 +1,13 @@
 import threading
 from time import sleep
+import json
 
 
 class Temperature:
-    def __init__(self, filelocation='./temperature.csv', timeframe=10):
+    def __init__(self, filelocation='./temperature.json', timeframe=10):
         self.filelocation = filelocation
         self.timeframe = timeframe
-        self.data = ['nice']
+        self.data = []
         self.thread = threading.Thread(target=self.runner, daemon=True)
         self.thread.start()
 
@@ -17,7 +18,7 @@ class Temperature:
 
     def fetch_data(self):
         with open(self.filelocation, 'r') as file:
-            self.data = file.readlines()[0].split(',')
+            self.data = file.readlines()[0]
 
     def get(self):
-        return self.data
+        return json.loads(self.data)

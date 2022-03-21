@@ -27,7 +27,7 @@ function Footer() {
       </Container>
       <div className="text-center p-3">
         <p>© 2022 Copyright:</p>
-        <a class="text-light" href="https://ettudo.com/">
+        <a className="text-light" href="https://ettudo.com/">
           Ettudo.com
         </a>
       </div>

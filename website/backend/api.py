@@ -1,14 +1,15 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from datacollector import Temperature
 
 
 temp = Temperature(timeframe=1)
 app = Flask(__name__)
+CORS(app)
 
 
-@app.route('/api/v1', methods=['GET'])
+@app.route('/api/temperature', methods=['GET'])
 def api():
-    data = ''
     return jsonify(temp.get())
 
 

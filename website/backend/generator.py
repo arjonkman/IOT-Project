@@ -1,15 +1,18 @@
 import random
+from datetime import datetime, timedelta
+import json
 
 
 def temperature(start=21, len=50):
-    temps = []
-    temps.append(start)
-    for _ in range(len):
+    data = {}
+    date = datetime.now()
+    for i in range(len):
         min = random.randint(0, 2)
         max = random.randint(0, 2)
         temp = random.randint(start-min, start+max)
-        temps.append(temp)
-    return temps
+        data[date.strftime("%y-%m-%d-%H-%M")] = temp
+        date = date + timedelta(minutes=5)
+    return data
 
 
 def main():
@@ -24,9 +27,5 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
-    data = ''
-    with open('temperature.csv', 'r') as file:
-        data = file.readlines()
-    data = data[0].split(',')
-    print(data)
+    with open('temperature.json', 'w') as file:
+        file.write(json.dumps(temperature()))
