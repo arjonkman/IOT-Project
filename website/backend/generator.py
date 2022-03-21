@@ -4,28 +4,27 @@ import json
 
 
 def temperature(start=21, len=50):
-    data = {}
+    data = []
     date = datetime.now()
     for i in range(len):
         min = random.randint(0, 2)
         max = random.randint(0, 2)
         temp = random.randint(start-min, start+max)
-        data[date.strftime("%y-%m-%d-%H-%M")] = temp
+        element = {
+            "date": date.strftime("%y-%m-%d-%H-%M"),
+            "value": temp
+        }
+        # Increase the time for the next datapoint by 5 minutes
         date = date + timedelta(minutes=5)
+
+        data.append(element)
     return data
 
 
 def main():
-    temps = temperature(21, 10000)
-    with open('temperature.csv', 'w') as file:
-        array_len = len(temps)
-        current_len = 0
-        for temp in temps:
-            current_len += 1
-            file.write(f'{temp},') if array_len != current_len else file.write(
-                f'{temp}')
+    with open('temperature.json', 'w') as file:
+        file.write(json.dumps(temperature()))
 
 
 if __name__ == '__main__':
-    with open('temperature.json', 'w') as file:
-        file.write(json.dumps(temperature()))
+    main()

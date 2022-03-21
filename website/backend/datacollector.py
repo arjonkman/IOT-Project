@@ -4,7 +4,7 @@ import json
 
 
 class Temperature:
-    def __init__(self, filelocation='./temperature.json', timeframe=10):
+    def __init__(self, filelocation='./temperature.json', timeframe=360):
         self.filelocation = filelocation
         self.timeframe = timeframe
         self.data = []
@@ -18,7 +18,7 @@ class Temperature:
 
     def fetch_data(self):
         with open(self.filelocation, 'r') as file:
-            self.data = file.readlines()[0]
+            self.data = json.load(file)
 
     def get(self):
-        return json.loads(self.data)
+        return self.data
