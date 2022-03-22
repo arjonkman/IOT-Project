@@ -4,12 +4,11 @@ import json
 import csv
 
 
-class Temperature:
-    def __init__(self, filelocation='./temperature.json', timeframe=360):
+class Humidity:
+    def __init__(self, filelocation='./humidity.json', timeframe=360):
         self.filelocation = filelocation
         self.timeframe = timeframe
         self.data = []
-        self.to_json()
         self.thread = threading.Thread(target=self.runner, daemon=True)
         self.thread.start()
 
@@ -40,7 +39,7 @@ class Temperature:
                             attributes[3]: values[3]
                         })
                     continue
-                valueData.append({
+                valueData.insert(0, {
                     "date": row[0],
                     "value": row[1]
                 })
