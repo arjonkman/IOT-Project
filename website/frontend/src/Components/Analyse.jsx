@@ -6,7 +6,7 @@ function Analyse() {
   const [temp, setTemp] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/temperature")
+    fetch("http://localhost:5000/api/humidity")
       .then((res) => res.json())
       .then((json) => {
         setTemp(json);
@@ -15,21 +15,12 @@ function Analyse() {
 
   return (
     <Row className="mx-0 p-4 justify-content-center text-center vh-100">
-      <Col xs={6}>
-        <Card>
-          <Card.Body>
-            <Card.Title>Analyse</Card.Title>
-            <Card.Text>
-              Get all of your needed hardware information from this page
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
       <Col>
-        {temp != "" ? <ResponsiveContainer width="99%" height={100}>
-          <AreaChart data={temp}>
-            <Area dataKey="value" />
+        {temp != "" ? <ResponsiveContainer width="100%" height={400}>
+          <AreaChart data={temp[1]}>
+            <Area dataKey="value"/>
             <XAxis dataKey="date"/>
+            <YAxis type="number" domain={[0, 2000]} dataKey="value"/>
           </AreaChart>
         </ResponsiveContainer> : <Spinner animation="border" />}
       </Col>

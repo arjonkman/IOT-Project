@@ -1,6 +1,7 @@
 import threading
 from time import sleep
 import json
+import csv
 
 
 class Temperature:
@@ -8,6 +9,7 @@ class Temperature:
         self.filelocation = filelocation
         self.timeframe = timeframe
         self.data = []
+        self.to_json()
         self.thread = threading.Thread(target=self.runner, daemon=True)
         self.thread.start()
 
@@ -17,25 +19,39 @@ class Temperature:
             sleep(self.timeframe)
 
     def to_json(self):
-        data = []
-        headers = {}
+        headerData = []
+        valueData = []
         with open(self.filelocation, 'r') as file:
+            reader = csv.reader(file)
             header = True
-            for line in file.readlines():
-                if line == '':
+            for row in reader:
+                if row == []:
                     header = True
                     continue
                 if header:
                     header = False
-                    for header in self.read_header(line):
-                        pass
-
-    def read_header(self, line):
-        ...
+                    if row[0] == 'building':
+                        attributes = row
+                        values = next(reader)
+                        headerData.append({
+                            attributes[0]: values[0],
+                            attributes[1]: values[1],
+                            attributes[2]: values[2],
+                            attributes[3]: values[3]
+                        })
+                    continue
+                valueData.append({
+                    "date": row[0],
+                    "value": row[1]
+                })
+        return [headerData, valueData]
 
     def fetch_data(self):
-        with open(self.filelocation, 'r') as file:
-            self.data = json.load(file)
+        if self.filelocation[self.filelocation.index('.'):] == '.csv':
+            self.data = self.to_json()
+        else:
+            with open(self.filelocation, 'r') as file:
+                self.data = json.load(file)
 
     def get(self):
         return self.data
