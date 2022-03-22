@@ -16,6 +16,23 @@ class Temperature:
             self.fetch_data()
             sleep(self.timeframe)
 
+    def to_json(self):
+        data = []
+        headers = {}
+        with open(self.filelocation, 'r') as file:
+            header = True
+            for line in file.readlines():
+                if line == '':
+                    header = True
+                    continue
+                if header:
+                    header = False
+                    for header in self.read_header(line):
+                        pass
+
+    def read_header(self, line):
+        ...
+
     def fetch_data(self):
         with open(self.filelocation, 'r') as file:
             self.data = json.load(file)
