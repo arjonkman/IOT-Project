@@ -12,6 +12,18 @@ import {
 
 function Analyse() {
   const [temp, setTemp] = useState([]);
+  const [begin, setBegin] = useState(" ")
+  const [end, setEnd] = useState(" ")
+
+  const handleInputBegin = event => {
+    setBegin(event.target.value);
+  };
+  const handleInputEnd = event => {
+    setEnd(event.target.value);
+  };
+  const handleInputButton = event => {
+    api()
+  }
 
   const months = [
     "Jan",
@@ -28,53 +40,63 @@ function Analyse() {
     "Dec",
   ];
 
-  useEffect(() => {
-    fetch("http://localhost:5000/api/humidity/03-20-2022/03-22-2022")
+  // useEffect(() => {
+  //   api();
+  // }, []);
+
+  return (
+    <div>
+      <input onChange={handleInputBegin} type='date'/>
+      <input onChange={handleInputEnd} type='date'/>
+      <button className="btn btn-primary" onClick={handleInputButton}>submit</button>
+      <Row className="mx-0 p-4 justify-content-center text-center vh-100">
+        <Col>
+          {temp != "" ? (
+            <ResponsiveContainer width="100%" height={400}>
+              <AreaChart data={temp[1]}>
+                <Area dataKey="value" type="natural" />
+                <XAxis
+                  dataKey="date"
+                  axisLine={false}
+                  tickLine={false}
+                  minTickGap={30}
+                  tickFormatter={(str) => {
+                    const month = str.substring(0, 2);
+                    const day = str.substring(3, 5);
+                    const date = new Date(0, month, day);
+                    if (date.getDate() % 7 == 0) {
+                      return months[date.getMonth() - 1] + ", " + date.getDate();
+                    }
+                    return "";
+                  }}
+                />
+                <YAxis
+                  dataKey="value"
+                  axisLine={false}
+                  tickCount={10}
+                  tickLine={false}
+                  domain={[0, 100]}
+                />
+                <CartesianGrid vertical={false} opacity={0.2} />
+                <Tooltip content={<DataTooltip />} />
+              </AreaChart>
+            </ResponsiveContainer>
+          ) : (
+            <Spinner animation="border" />
+          )}
+        </Col>
+      </Row>
+    </div>
+  );
+
+
+  function api() {
+    fetch(`http://localhost:5000/api/humidity/${begin}/${end}`)
       .then((res) => res.json())
       .then((json) => {
         setTemp(json);
       });
-  }, []);
-
-  return (
-    <Row className="mx-0 p-4 justify-content-center text-center vh-100">
-      <Col>
-        {temp != "" ? (
-          <ResponsiveContainer width="100%" height={400}>
-            <AreaChart data={temp[1]}>
-              <Area dataKey="value" type="natural" />
-              <XAxis
-                dataKey="date"
-                axisLine={false}
-                tickLine={false}
-                minTickGap={30}
-                tickFormatter={(str) => {
-                  const month = str.substring(0, 2);
-                  const day = str.substring(3, 5);
-                  const date = new Date(0, month, day);
-                  if (date.getDate() % 7 == 0) {
-                    return months[date.getMonth() - 1] + ", " + date.getDate();
-                  }
-                  return "";
-                }}
-              />
-              <YAxis
-                dataKey="value"
-                axisLine={false}
-                tickCount={10}
-                tickLine={false}
-                domain={[0, 100]}
-              />
-              <CartesianGrid vertical={false} opacity={0.2} />
-              <Tooltip content={<DataTooltip />} />
-            </AreaChart>
-          </ResponsiveContainer>
-        ) : (
-          <Spinner animation="border" />
-        )}
-      </Col>
-    </Row>
-  );
+  }
 }
 
 function DataTooltip({ active, payload, label }) {
