@@ -63,7 +63,7 @@ function Analyse() {
                 axisLine={false}
                 tickCount={10}
                 tickLine={false}
-                domain={[0, 3500]}
+                domain={[0, 100]}
               />
               <CartesianGrid vertical={false} opacity={0.2} />
               <Tooltip content={<DataTooltip />} />
@@ -91,7 +91,7 @@ function DataTooltip({ active, payload, label }) {
     return (
       <div style={tooltip}>
         <h6>{label}</h6>
-        <p>{payload[0].value} ppm</p>
+        <p>{payload[0].value} %RH</p>
       </div>
     );
   }
