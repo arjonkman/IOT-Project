@@ -6,6 +6,7 @@ function Analyse() {
   const [temp, setTemp] = useState([]);
 
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  let dataPoints = 0;
 
   useEffect(() => {
     fetch("http://localhost:5000/api/humidity")
@@ -24,10 +25,9 @@ function Analyse() {
             <XAxis dataKey="date" axisLine={false} tickLine={false} minTickGap={30} tickFormatter={str => {
               const month = str.substring(0, 2);
               const day = str.substring(3, 5);
-              const year = str.substring(6, 10);
-              const hour = str.substring(11, 13);
-              const minute = str.substring(14, 16);
-              const date = new Date(year, month, day, hour, minute);
+              const date = new Date(0, month, day);
+              dataPoints += 1;
+              console.log(dataPoints);
               if (date.getDate() % 7 == 0) {
                 return months[date.getMonth()-1] + ", " + date.getDate();
               }
