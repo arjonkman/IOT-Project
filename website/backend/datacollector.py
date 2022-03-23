@@ -5,7 +5,16 @@ import csv
 
 
 class Humidity:
+    """Object to get JSON data from a certain file
+    """
+
     def __init__(self, filelocation='./humidity.json', timeframe=360):
+        """Initialize the Humidity object with all the data needed
+
+        Args:
+            filelocation (str, optional): file location of file to read content from. Defaults to './humidity.json'.
+            timeframe (int, optional): time between the automatically fetching of data from the selected file. Defaults to 360.
+        """
         self.filelocation = filelocation
         self.timeframe = timeframe
         self.data = []
@@ -13,11 +22,19 @@ class Humidity:
         self.thread.start()
 
     def runner(self):
+        """Run the data fetcher once every self.timeframe times
+        """
         while True:
             self.fetch_data()
             sleep(self.timeframe)
 
     def to_json(self):
+        """Get CSV file and Return the file in a JSON format
+
+        Returns:
+            array: Returns a 2d array, first element is the header data, 
+                   second element is all the values
+        """
         headerData = []
         valueData = []
         with open(self.filelocation, 'r') as file:
@@ -46,6 +63,8 @@ class Humidity:
         return [headerData, valueData]
 
     def fetch_data(self):
+        """Get data of selected file and load the json data of that file in self.data
+        """
         if self.filelocation[self.filelocation.index('.'):] == '.csv':
             self.data = self.to_json()
         else:
@@ -53,4 +72,9 @@ class Humidity:
                 self.data = json.load(file)
 
     def get(self):
+        """Return the data in a json format
+
+        Returns:
+            <JSON Object>: Returns a JSON object of the selected data
+        """
         return self.data

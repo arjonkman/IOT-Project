@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Card, Spinner } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { ResponsiveContainer, AreaChart, XAxis, YAxis, Area, Tooltip, CartesianGrid} from "recharts";
 
 function Analyse() {
   const [temp, setTemp] = useState([]);
 
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  let lastDay = -1;
 
   useEffect(() => {
     fetch("http://localhost:5000/api/humidity")
@@ -22,15 +21,14 @@ function Analyse() {
         {temp != "" ? <ResponsiveContainer width="100%" height={400}>
           <AreaChart data={temp[1]}>
             <Area dataKey="value" type="natural"/>
-            <XAxis dataKey="date" axisLine={false} tickLine={false} tickFormatter={str => {
+            <XAxis dataKey="date" axisLine={false} tickLine={false} minTickGap={30} tickFormatter={str => {
               const month = str.substring(0, 2);
               const day = str.substring(3, 5);
               const year = str.substring(6, 10);
               const hour = str.substring(11, 13);
               const minute = str.substring(14, 16);
               const date = new Date(year, month, day, hour, minute);
-              if (date.getDate() % 7 == 0 && date.getDate() != lastDay) {
-                lastDay = date.getDate();
+              if (date.getDate() % 7 == 0) {
                 return months[date.getMonth()-1] + ", " + date.getDate();
               }
               return "";
