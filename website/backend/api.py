@@ -8,9 +8,10 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/api/humidity', methods=['GET'])
-def api():
-    return jsonify(humidity.get())
+@app.route('/api/humidity/<begin>/<end>', methods=['GET'])
+def api(begin, end):
+    json = jsonify(humidity.get(begin, end))
+    return json
 
 
 if __name__ == '__main__':

@@ -1,3 +1,4 @@
+import pandas as pd
 import threading
 from time import sleep
 import json
@@ -32,7 +33,7 @@ class Humidity:
         """Get CSV file and Return the file in a JSON format
 
         Returns:
-            array: Returns a 2d array, first element is the header data, 
+            array: Returns a 2d array, first element is the header data,
                    second element is all the values
         """
         headerData = []
@@ -71,10 +72,19 @@ class Humidity:
             with open(self.filelocation, 'r') as file:
                 self.data = json.load(file)
 
-    def get(self):
+    def get(self, begin, end):
         """Return the data in a json format
 
         Returns:
             <JSON Object>: Returns a JSON object of the selected data
         """
+        removeL = []
+        for i, item in enumerate(self.data[1]):
+            date = pd.to_datetime(item['date']).normalize()
+            begin = pd.to_datetime(begin).normalize()
+            end = pd.to_datetime(end).normalize()
+            if not date >= begin or not date <= end:
+                removeL += [i]
+        for i, item in enumerate(removeL):
+            self.data[1].pop(item-i)
         return self.data
