@@ -59,6 +59,7 @@ function Analyse() {
           <option value="" selected>Select a room</option>
           <option value="kamer">Kamer</option>
           <option value="studeer">Studeer</option>
+          <option value="studeer_co2">Studeer CO2</option>
         </select>
         <button className="btn btn-primary" onClick={handleInputButton}>submit</button>
       </div>
