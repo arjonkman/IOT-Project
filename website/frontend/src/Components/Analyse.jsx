@@ -15,6 +15,7 @@ function Analyse() {
   const [begin, setBegin] = useState(" ")
   const [end, setEnd] = useState(" ")
   const [kamer, setKamer] = useState(' ')
+  const [maximum, setMaximum] = useState(0)
 
   const handleInputBegin = event => {
     setBegin(event.target.value);
@@ -24,6 +25,7 @@ function Analyse() {
   };
   const handleInputButton = event => {
     api()
+    max()
   }
   const handleSelect = event => {
     setKamer(event.target.value)
@@ -86,7 +88,7 @@ function Analyse() {
                   axisLine={false}
                   tickCount={10}
                   tickLine={false}
-                  domain={[0, 100]}
+                  domain={[0, {maximum}]}
                 />
                 <CartesianGrid vertical={false} opacity={0.2} />
                 <Tooltip content={<DataTooltip />} />
@@ -102,11 +104,20 @@ function Analyse() {
 
 
   function api() {
-    fetch(`http://localhost:5000/api/humidity/${begin}/${end}/${kamer}`)
+    fetch(`http://193.42.11.96:5000/api/humidity/${begin}/${end}/${kamer}`)
       .then((res) => res.json())
       .then((json) => {
         setTemp(json);
       });
+  }
+
+  function max() {
+    for (let i in temp[1]) {
+      if (maximum < temp[1][i]['value']) {
+        setMaximum(temp[1][i]['value'])
+      }
+    }
+    return maximum
   }
 }
 
