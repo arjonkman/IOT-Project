@@ -9,25 +9,23 @@ class Humidity:
     """Object to get JSON data from a certain file
     """
 
-    def __init__(self, filelocation='./humidity.json', timeframe=360):
+    def __init__(self, timeframe=360):
         """Initialize the Humidity object with all the data needed
 
         Args:
             filelocation (str, optional): file location of file to read content from. Defaults to './humidity.json'.
             timeframe (int, optional): time between the automatically fetching of data from the selected file. Defaults to 360.
         """
-        self.filelocation = filelocation
+        self.filelocation = ''
         self.timeframe = timeframe
         self.data = []
-        self.thread = threading.Thread(target=self.runner, daemon=True)
-        self.thread.start()
 
-    def runner(self):
-        """Run the data fetcher once every self.timeframe times
-        """
-        while True:
-            self.fetch_data()
-            sleep(self.timeframe)
+    # def runner(self):
+    #     """Run the data fetcher once every self.timeframe times
+    #     """
+    #     while True:
+    #         self.fetch_data()
+    #         sleep(self.timeframe)
 
     def to_json(self):
         """Get CSV file and Return the file in a JSON format
@@ -78,6 +76,7 @@ class Humidity:
         Returns:
             <JSON Object>: Returns a JSON object of the selected data
         """
+        self.fetch_data()
         removeL = []
         for i, item in enumerate(self.data[1]):
             date = pd.to_datetime(item['date']).normalize()

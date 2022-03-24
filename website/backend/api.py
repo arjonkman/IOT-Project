@@ -3,13 +3,15 @@ from flask_cors import CORS
 from datacollector import Humidity
 
 
-humidity = Humidity(filelocation='kamer.csv', timeframe=1)
 app = Flask(__name__)
 CORS(app)
 
+humidity = Humidity(timeframe=1)
 
-@app.route('/api/humidity/<begin>/<end>', methods=['GET'])
-def api(begin, end):
+
+@app.route('/api/humidity/<begin>/<end>/<kamer>', methods=['GET'])
+def api(begin, end, kamer):
+    humidity.filelocation = f'{kamer}.csv'
     json = jsonify(humidity.get(begin, end))
     return json
 

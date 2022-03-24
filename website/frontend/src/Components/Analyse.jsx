@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Row, Col, Spinner } from "react-bootstrap";
 import {
   ResponsiveContainer,
@@ -14,6 +14,7 @@ function Analyse() {
   const [temp, setTemp] = useState([]);
   const [begin, setBegin] = useState(" ")
   const [end, setEnd] = useState(" ")
+  const [kamer, setKamer] = useState(' ')
 
   const handleInputBegin = event => {
     setBegin(event.target.value);
@@ -23,6 +24,9 @@ function Analyse() {
   };
   const handleInputButton = event => {
     api()
+  }
+  const handleSelect = event => {
+    setKamer(event.target.value)
   }
 
   const months = [
@@ -46,9 +50,16 @@ function Analyse() {
 
   return (
     <div>
-      <input onChange={handleInputBegin} type='date'/>
-      <input onChange={handleInputEnd} type='date'/>
-      <button className="btn btn-primary" onClick={handleInputButton}>submit</button>
+      <div className="d-flex flex-row">
+        <input onChange={handleInputBegin} type='date'/>
+        <input onChange={handleInputEnd} type='date'/>
+        <select onChange={handleSelect} className="form-select form-select-sm">
+          <option value="" selected>Select a room</option>
+          <option value="kamer">Kamer</option>
+          <option value="studeer">Studeer</option>
+        </select>
+        <button className="btn btn-primary" onClick={handleInputButton}>submit</button>
+      </div>
       <Row className="mx-0 p-4 justify-content-center text-center vh-100">
         <Col>
           {temp != "" ? (
@@ -91,7 +102,7 @@ function Analyse() {
 
 
   function api() {
-    fetch(`http://localhost:5000/api/humidity/${begin}/${end}`)
+    fetch(`http://localhost:5000/api/humidity/${begin}/${end}/${kamer}`)
       .then((res) => res.json())
       .then((json) => {
         setTemp(json);
@@ -113,7 +124,7 @@ function DataTooltip({ active, payload, label }) {
     return (
       <div style={tooltip}>
         <h6>{label}</h6>
-        <p>{payload[0].value} %RH</p>
+        <p>{payload[0].value}</p>
       </div>
     );
   }
