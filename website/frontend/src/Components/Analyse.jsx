@@ -12,9 +12,9 @@ import {
 
 function Analyse() {
   const [temp, setTemp] = useState([]);
-  const [begin, setBegin] = useState(" ")
-  const [end, setEnd] = useState(" ")
-  const [kamer, setKamer] = useState(' ')
+  const [begin, setBegin] = useState("1-1-1970")
+  const [end, setEnd] = useState("31-12-2100")
+  const [kamer, setKamer] = useState('kamer')
   const [maximum, setMaximum] = useState(0)
 
   const handleInputBegin = event => {
@@ -31,6 +31,12 @@ function Analyse() {
     setKamer(event.target.value)
   }
 
+  if (temp.length == 0) {
+    api()
+  }
+
+
+
   const months = [
     "Jan",
     "Feb",
@@ -46,17 +52,13 @@ function Analyse() {
     "Dec",
   ];
 
-  // useEffect(() => {
-  //   api();
-  // }, []);
-
   return (
     <div>
       <div className="d-flex flex-row">
         <input onChange={handleInputBegin} type='date'/>
         <input onChange={handleInputEnd} type='date'/>
         <select onChange={handleSelect} className="form-select form-select-sm">
-          <option value="" selected>Select a room</option>
+          <option value="" defaultValue>Select a room</option>
           <option value="kamer">Kamer</option>
           <option value="studeer">Studeer</option>
           <option value="studeer_co2">Studeer CO2</option>
@@ -75,12 +77,12 @@ function Analyse() {
                   tickLine={false}
                   minTickGap={30}
                   tickFormatter={(str) => {
-                    const month = str.substring(0, 2);
-                    const day = str.substring(3, 5);
-                    const date = new Date(0, month, day);
-                    if (date.getDate() % 7 == 0) {
-                      return months[date.getMonth() - 1] + ", " + date.getDate();
-                    }
+                    // const month = str.substring(0, 2);
+                    // const day = str.substring(3, 5);
+                    // const date = new Date(0, month, day);
+                    // if (date.getDate() % 7 == 0) {
+                    //   return months[date.getMonth() - 1] + ", " + date.getDate();
+                    // }
                     return "";
                   }}
                 />
