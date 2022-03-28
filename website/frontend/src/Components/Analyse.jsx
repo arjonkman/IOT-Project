@@ -115,12 +115,13 @@ function Analyse() {
   }
 
   function max() {
-    for (let i in temp[1]) {
-      if (maximum < temp[1][i]['value']) {
-        setMaximum(temp[1][i]['value'])
+    var max = 0;
+    for (var i in temp[1]) {
+      if (i > max) {
+        max = i;
       }
     }
-    return maximum
+    setMaximum(max)
   }
 }
 
