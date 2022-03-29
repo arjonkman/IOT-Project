@@ -9,6 +9,8 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
+import Upload from './Upload'
+
 
 function Analyse() {
   const [temp, setTemp] = useState([]);
@@ -54,6 +56,7 @@ function Analyse() {
 
   return (
     <div>
+      <Upload />
       <div className="d-flex flex-row">
         <input onChange={handleInputBegin} type='date'/>
         <input onChange={handleInputEnd} type='date'/>
@@ -107,7 +110,7 @@ function Analyse() {
 
 
   function api() {
-    fetch(`http://193.42.11.96:5000/api/humidity/${begin}/${end}/${kamer}`)
+    fetch(`http://localhost:5000/api/humidity/${begin}/${end}/${kamer}`)
       .then((res) => res.json())
       .then((json) => {
         setTemp(json);
