@@ -21,9 +21,10 @@ def upload():
     try:
         file = request.files['file']
         if '.csv' in file.filename:
-            file.save(os.path.join(app.root_path, file.filename))
+            path = app.root_path + '/csv/'
+            file.save(os.path.join(path, file.filename))
             return 'File uploaded successfully'
-        return 'Not a .csv file'
+        return 'File not supported'
     except:
         return 'Upload failed'
 

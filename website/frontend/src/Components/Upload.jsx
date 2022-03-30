@@ -23,7 +23,7 @@ class Upload extends Component {
     formData.append("file", this.state.file);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/upload",
+        "http://193.42.11.96:5000/api/upload",
         formData
       );
       this.setState({

@@ -110,7 +110,7 @@ function Analyse() {
 
 
   function api() {
-    fetch(`http://localhost:5000/api/humidity/${begin}/${end}/${kamer}`)
+    fetch(`http://193.42.11.96:5000/api/humidity/${begin}/${end}/${kamer}`)
       .then((res) => res.json())
       .then((json) => {
         setTemp(json);
