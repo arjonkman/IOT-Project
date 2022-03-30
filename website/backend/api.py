@@ -11,9 +11,21 @@ humidity = Humidity(timeframe=1)
 
 @app.route('/api/humidity/<begin>/<end>/<kamer>', methods=['GET'])
 def api(begin, end, kamer):
-    humidity.filelocation = f'{kamer}.csv'
+    humidity.filelocation = f'csv/{kamer}.csv'
     json = jsonify(humidity.get(begin, end))
     return json
+
+
+@app.route('/api/csvfiles', methods=['GET'])
+def csvfiles():
+    path = app.root_path + '/csv'
+    list_of_files = []
+
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            list_of_files.append(file)
+
+    return jsonify(list_of_files)
 
 
 @app.route('/api/upload', methods=['POST'])
@@ -30,4 +42,4 @@ def upload():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')

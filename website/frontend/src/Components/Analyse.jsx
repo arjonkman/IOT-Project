@@ -9,15 +9,16 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
-import Upload from './Upload'
+import Upload from './Upload';
+import Csvfiles from './Csvfiles';
 
 
 function Analyse() {
   const [temp, setTemp] = useState([]);
-  const [begin, setBegin] = useState("1-1-1970")
-  const [end, setEnd] = useState("31-12-2100")
-  const [kamer, setKamer] = useState('kamer')
-  const [maximum, setMaximum] = useState(0)
+  const [begin, setBegin] = useState("1970-01-01");
+  const [end, setEnd] = useState("2100-12-31");
+  const [kamer, setKamer] = useState('studeer');
+  const [maximum, setMaximum] = useState(0);
 
   const handleInputBegin = event => {
     setBegin(event.target.value);
@@ -57,15 +58,11 @@ function Analyse() {
   return (
     <div>
       <Upload />
+      
       <div className="d-flex flex-row">
-        <input onChange={handleInputBegin} type='date'/>
-        <input onChange={handleInputEnd} type='date'/>
-        <select onChange={handleSelect} className="form-select form-select-sm">
-          <option value="" defaultValue>Select a room</option>
-          <option value="kamer">Kamer</option>
-          <option value="studeer">Studeer</option>
-          <option value="studeer_co2">Studeer CO2</option>
-        </select>
+        <input value={begin} onChange={handleInputBegin} type='date'/>
+        <input value={end} onChange={handleInputEnd} type='date'/>
+        <Csvfiles setKamer={setKamer}/>
         <button className="btn btn-primary" onClick={handleInputButton}>submit</button>
       </div>
       <Row className="mx-0 p-4 justify-content-center text-center vh-100">
@@ -105,6 +102,7 @@ function Analyse() {
           )}
         </Col>
       </Row>
+      
     </div>
   );
 
