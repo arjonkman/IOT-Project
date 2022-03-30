@@ -9,7 +9,8 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
-import Upload from './Upload'
+import Upload from './Upload';
+import Csvfiles from './Csvfiles';
 
 
 function Analyse() {
@@ -57,15 +58,11 @@ function Analyse() {
   return (
     <div>
       <Upload />
+      
       <div className="d-flex flex-row">
         <input onChange={handleInputBegin} type='date'/>
         <input onChange={handleInputEnd} type='date'/>
-        <select onChange={handleSelect} className="form-select form-select-sm">
-          <option value="" defaultValue>Select a room</option>
-          <option value="kamer">Kamer</option>
-          <option value="studeer">Studeer</option>
-          <option value="studeer_co2">Studeer CO2</option>
-        </select>
+        <Csvfiles />
         <button className="btn btn-primary" onClick={handleInputButton}>submit</button>
       </div>
       <Row className="mx-0 p-4 justify-content-center text-center vh-100">
@@ -105,6 +102,7 @@ function Analyse() {
           )}
         </Col>
       </Row>
+      
     </div>
   );
 

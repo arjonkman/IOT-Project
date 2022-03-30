@@ -1,3 +1,4 @@
+import csv
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from datacollector import Humidity
@@ -15,6 +16,17 @@ def api(begin, end, kamer):
     json = jsonify(humidity.get(begin, end))
     return json
 
+
+@app.route('/api/csvfiles', methods=['GET'])
+def csvfiles():
+    path = app.root_path + '/csv'
+    list_of_files = []
+
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            list_of_files.append(file)
+
+    return jsonify(list_of_files)
 
 @app.route('/api/upload', methods=['POST'])
 def upload():
