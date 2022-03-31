@@ -61,6 +61,7 @@ function Analyse() {
       
       <div className="d-flex flex-row">
         <input value={begin} onChange={handleInputBegin} type='date'/>
+        <p className="px-1">tot</p>
         <input value={end} onChange={handleInputEnd} type='date'/>
         <Csvfiles setKamer={setKamer}/>
         <button className="btn btn-primary" onClick={handleInputButton}>submit</button>
