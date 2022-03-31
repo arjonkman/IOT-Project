@@ -17,7 +17,7 @@ function Analyse() {
   const [temp, setTemp] = useState([]);
   const [begin, setBegin] = useState("1970-01-01");
   const [end, setEnd] = useState("2100-12-31");
-  const [kamer, setKamer] = useState('studeer');
+  const [kamer, setKamer] = useState('studeer_temp');
   const [maximum, setMaximum] = useState(0);
 
   const handleInputBegin = event => {
