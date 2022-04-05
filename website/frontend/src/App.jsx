@@ -9,6 +9,8 @@ import Footer from "./Components/Footer";
 import "bootstrap/scss/bootstrap.scss";
 // Import customized version of bootstrap
 import "./scss/bootstrap.scss";
+// Import custom css
+import "./scss/app.scss";
 
 function App() {
   return (

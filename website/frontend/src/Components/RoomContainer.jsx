@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import Room from "./Room";
 
 
@@ -8,8 +8,22 @@ function RoomContainer(props) {
 	// 	return <Room key={index} />
 	// });
 
+	let rooms = '';
+
 	return (
 		<>
+			<Room />
+			<Room />
+			<Room />
+			<Room />
+			<Room />
+			<Room />
+			<Room />
+			<Room />
+			<Room />
+			<Room />
+			<Room />
+			<Room />
 		</>
 	)
 }
