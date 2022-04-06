@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Header from "./Components/Header";
 import Home from "./Components/Home";
-import Analyse from "./Components/Analyse";
+import Rooms from "./Components/Rooms";
 import Footer from "./Components/Footer";
 
 // Import Bootstrap
@@ -20,7 +20,7 @@ function App() {
         <section className="content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/analyse" element={<Analyse />} />
+            <Route path="/rooms" element={<Rooms />} />
             <Route path="/export" element={<></>} />
           </Routes>
         </section>
