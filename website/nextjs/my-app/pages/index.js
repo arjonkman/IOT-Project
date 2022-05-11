@@ -40,7 +40,7 @@ export default function Home() {
 					<Card border='info' style={{ minHeight: '70vh' }}>
 						<Card.Body>
 							<Card.Title>
-								<b style={{ fontSize: '3rem' }}>Informatie</b>
+								<b style={{ fontSize: '3rem' }}>Tips</b>
 							</Card.Title>
 							{tips.map((tip, index) => (
 								<Card.Text key={index}>
@@ -53,7 +53,7 @@ export default function Home() {
 						</Card.Body>
 					</Card>
 				</Col>
-				<Col md={6}>
+				<Col xs={6}>
 					<b style={{ fontSize: '3rem' }}>Ruimtes</b>
 					<Search />
 				</Col>
