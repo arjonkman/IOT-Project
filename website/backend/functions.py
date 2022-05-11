@@ -11,6 +11,13 @@ import sqlite3
 import os
 
 
+import threading
+from time import sleep
+import json
+import csv
+from flask import jsonify
+
+
 def get_rooms():
     """
     Returns a list of all rooms."""
@@ -102,3 +109,13 @@ def account(email, password):
             return {'message': 'Invalid email or password'}
         session_id = sha1(os.urandom(128)).hexdigest()
     return {'success': True, 'session_id': session_id}
+
+    lux_data = Lux(filelocation='Webtech_Studeerkamer_A81758FFFE053FDB-Illuminance.csv', timeframe=1)
+    lux_data_json = lux_data.to_json()
+
+    for i in range(4064):
+        # * lux needed: 300-500, dus we gaan uit van 400 lux
+
+        lux = lux_data_json[1][i]['value']
+        lux_needed += [int(400 - float(lux))]
+    return lux_needed
