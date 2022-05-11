@@ -1,6 +1,7 @@
 import { Row, Col, Card } from 'react-bootstrap';
 import Head from 'next/Head';
 import Search from '../components/Search';
+import { useCookies } from 'react-cookie';
 
 const tips = [
 	{
@@ -30,6 +31,19 @@ const tips = [
 ];
 
 export default function Home() {
+	const [cookies, setCookie] = useCookies(['session_id']);
+
+	if (cookies.session_id == undefined) {
+		if (typeof window !== 'undefined') {
+			window.location.href = '/login';
+		}
+	} else {
+		setCookie('session_id', cookies.session_id, {
+			path: '/',
+			maxAge: 3600,
+		});
+	}
+
 	return (
 		<main style={{ minHeight: '95vh' }}>
 			<Head>

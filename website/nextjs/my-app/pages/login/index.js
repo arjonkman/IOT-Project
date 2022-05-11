@@ -28,7 +28,10 @@ export default function Login() {
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.success) {
-					setCookie('session_id', data.session_id, { path: '/' });
+					setCookie('session_id', data.session_id, {
+						path: '/',
+						maxAge: 3600,
+					});
 					window.location.href = '/';
 				} else {
 					alert(data.message);
