@@ -20,11 +20,9 @@ def light_intensity():
 
 
 def account(email, password):
-    try:
-        with sqlite3.connect('database.db') as db:
-            db.execute(
-                'SELECT * FROM users WHERE email = ? AND password = ?', (email, password))
-        return {'success': True, 'session_id': sha1(os.urandom(128)).hexdigest()}
-    except Exception as e:
-        print('error', e)
-        return {'message': 'Invalid email or password'}
+    with sqlite3.connect('database.db') as db:
+        res = db.execute(
+            'SELECT * FROM users WHERE email = ? AND password = ?', (email, password))
+        if res.fetchall() == []:
+            return {'message': 'Invalid email or password'}
+    return {'success': True, 'session_id': sha1(os.urandom(128)).hexdigest()}

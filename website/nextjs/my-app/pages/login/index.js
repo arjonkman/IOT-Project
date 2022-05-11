@@ -12,7 +12,7 @@ export default function Login() {
 
 	if (cookies.session_id != undefined) {
 		window.location.href = '/';
-		return <></>;
+		return <div style={{ minHeight: '100vh' }}></div>;
 	}
 
 	function handleSubmit(e) {
