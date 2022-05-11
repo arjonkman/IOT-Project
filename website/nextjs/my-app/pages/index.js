@@ -44,7 +44,6 @@ export default function Home() {
 							</Card.Title>
 							{tips.map((tip, index) => (
 								<Card.Text key={index}>
-									<hr />
 									<b>{tip.title}</b>
 									<br />
 									{tip.description}

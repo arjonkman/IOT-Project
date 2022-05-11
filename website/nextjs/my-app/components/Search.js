@@ -1,5 +1,6 @@
 import { Row, Col, Card, Form } from 'react-bootstrap';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Search() {
 	const [data, setData] = useState(getData());
@@ -16,23 +17,29 @@ export default function Search() {
 
 		if (!query) {
 			return_data = posts.map((post) => {
+				let href = `/rooms/${post.id}`
 				return (
-					<Col className='pt-1' md={4} key={post.id}>
-						<Card>
-							<h3>{post.name}</h3>
-						</Card>
-					</Col>
+					<Link href={href}>
+						<Col className='link pt-1' md={4} key={post.id}>
+							<Card>
+								<Card.Title><h3>{post.name}</h3></Card.Title>
+							</Card>
+						</Col>
+					</Link >
 				)
 			});
 		} else {
 			return_data = posts.map((post) => {
 				if (post.name.toLowerCase().includes(query.toLowerCase()) || post.building.toLowerCase().includes(query.toLowerCase())) {
+					let href = `/rooms/${post.id}`
 					return (
-						<Col className='pt-1' md={4} key={post.id}>
-							<Card>
-								<h3>{post.name}</h3>
-							</Card>
-						</Col>
+						<Link href={href}>
+							<Col className='link pt-1' md={4} key={post.id}>
+								<Card>
+									<Card.Title><h3>{post.name}</h3></Card.Title>
+								</Card>
+							</Col>
+						</Link >
 					)
 				}
 			});
