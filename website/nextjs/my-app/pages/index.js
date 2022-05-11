@@ -8,7 +8,7 @@ export default function Home() {
 			<Head>
 				<title>Ettudo - Home</title>
 			</Head>
-			<Row className="mx-0 p-4 justify-content-center text-center vh-100">
+			<Row className="mx-0 p-4 text-center vh-100">
 				<Col md={6}>
 					<Card>
 						<Card.Body>

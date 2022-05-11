@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap';
+import { Row, Col, Card, Form } from 'react-bootstrap';
 import { useState } from 'react';
 
 export default function Search() {
@@ -6,24 +6,38 @@ export default function Search() {
 
 	function getData(query) {
 		const posts = [
-			{ id: '1', name: 'Kamer 1' },
-			{ id: '2', name: 'Kamer 2' },
-			{ id: '3', name: 'Kamer 3' },
-			{ id: '4', name: 'Kamer 4' },
+			{ id: '1', name: 'A201', building: 'ZP11' },
+			{ id: '2', name: 'A225', building: 'ZP11' },
+			{ id: '3', name: 'A125', building: 'ZP11' },
+			{ id: '4', name: 'A147', building: 'ZP11' },
 		];
 
+		var return_data = [];
+
 		if (!query) {
-			let temp = posts.map((post) => {
+			return_data = posts.map((post) => {
 				return (
-					<div key={post.id}>
-						<h3>{post.name}</h3>
-					</div>
+					<Col className='pt-1' md={4} key={post.id}>
+						<Card>
+							<h3>{post.name}</h3>
+						</Card>
+					</Col>
 				)
 			});
-			return temp;
 		} else {
-			return [];
+			return_data = posts.map((post) => {
+				if (post.name.toLowerCase().includes(query.toLowerCase()) || post.building.toLowerCase().includes(query.toLowerCase())) {
+					return (
+						<Col className='pt-1' md={4} key={post.id}>
+							<Card>
+								<h3>{post.name}</h3>
+							</Card>
+						</Col>
+					)
+				}
+			});
 		}
+		return return_data;
 	}
 
 	function handleChange(e) {
@@ -39,7 +53,9 @@ export default function Search() {
 					placeholder="Zoeken"
 				/>
 			</form>
-			{data}
+			<Row>
+				{data}
+			</Row>
 		</>
 	);
 }
