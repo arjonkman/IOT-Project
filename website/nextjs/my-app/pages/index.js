@@ -37,18 +37,27 @@ export default function Home() {
 			</Head>
 			<Row className="mx-0 p-4 justify-content-center text-center">
 				<Col md={6}>
-					<Card border='info' style={{ minHeight: '70vh' }}>
+					<Card style={{ minHeight: '70vh' }}>
 						<Card.Body>
 							<Card.Title>
 								<b style={{ fontSize: '3rem' }}>Tips</b>
 							</Card.Title>
-							{tips.map((tip, index) => (
-								<Card.Text key={index}>
-									<hr />
-									<b>{tip.title}</b>
+							{tips.map((tip) => (
+								<>
 									<br />
-									{tip.description}
-								</Card.Text>
+									<Card>
+										<Card.Body>
+											<Card.Title
+												style={{ fontSize: '1rem' }}
+											>
+												{tip.title}
+											</Card.Title>
+											<Card.Text>
+												{tip.description}
+											</Card.Text>
+										</Card.Body>
+									</Card>
+								</>
 							))}
 						</Card.Body>
 					</Card>
