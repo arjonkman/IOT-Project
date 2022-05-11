@@ -1,3 +1,8 @@
+from hashlib import sha1
+import sqlite3
+import os
+
+
 def get_rooms():
     """
     Returns a list of all rooms."""
@@ -12,3 +17,14 @@ def get_rooms():
 
 def light_intensity():
     pass
+
+
+def account(email, password):
+    try:
+        with sqlite3.connect('database.db') as db:
+            db.execute(
+                'SELECT * FROM users WHERE email = ? AND password = ?', (email, password))
+        return {'success': True, 'session_id': sha1(os.urandom(128)).hexdigest()}
+    except Exception as e:
+        print('error', e)
+        return {'message': 'Invalid email or password'}
