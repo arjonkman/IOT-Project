@@ -62,7 +62,7 @@ export default function Home() {
 						</Card.Body>
 					</Card>
 				</Col>
-				<Col xs={6}>
+				<Col md={6}>
 					<b style={{ fontSize: '3rem' }}>Ruimtes</b>
 					<Search />
 				</Col>

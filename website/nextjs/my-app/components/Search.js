@@ -20,15 +20,15 @@ export default function Search() {
 				let href = `/rooms/${post.id}`;
 				return (
 					<Link key={post.id} href={href}>
-						<Col className="link pt-1" md={4} key={post.id}>
+						<Col className="link pt-1" md={4}>
 							<Card>
+								<Card.Img src="/bulb.svg" />
 								<Card.Title>
 									<h3>{post.name}</h3>
 								</Card.Title>
 								<Card.Subtitle>
 									<i>{post.building}</i>
 								</Card.Subtitle>
-								<Card.Img src="/bulb.svg" />
 							</Card>
 						</Col>
 					</Link>
@@ -43,15 +43,15 @@ export default function Search() {
 					let href = `/rooms/${post.id}`;
 					return (
 						<Link key={post.id} href={href}>
-							<Col className="link pt-1" md={4} key={post.id}>
+							<Col className="link pt-1" md={4}>
 								<Card>
+									<Card.Img src="/bulb.svg" />
 									<Card.Title>
 										<h3>{post.name}</h3>
 									</Card.Title>
 									<Card.Subtitle>
 										<i>{post.building}</i>
 									</Card.Subtitle>
-									<Card.Img src="/bulb.svg" />
 								</Card>
 							</Col>
 						</Link>
@@ -68,7 +68,7 @@ export default function Search() {
 
 	return (
 		<>
-			<form>
+			<form method="GET" action="/rooms">
 				<Form.Control
 					onChange={handleChange}
 					type="text"
