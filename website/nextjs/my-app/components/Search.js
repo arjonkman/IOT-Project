@@ -17,30 +17,41 @@ export default function Search() {
 
 		if (!query) {
 			return_data = posts.map((post) => {
-				let href = `/rooms/${post.id}`
+				let href = `/rooms/${post.id}`;
 				return (
 					<Link href={href}>
-						<Col className='link pt-1' md={4} key={post.id}>
+						<Col className="link pt-1" md={4} key={post.id}>
 							<Card>
-								<Card.Title><h3>{post.name}</h3></Card.Title>
+								<Card.Title>
+									<h3>{post.name}</h3>
+								</Card.Title>
+								<Card.Subtitle>
+									<i>{post.building}</i>
+								</Card.Subtitle>
+								<Card.Img src="/bulb.svg" />
 							</Card>
 						</Col>
-					</Link >
-				)
+					</Link>
+				);
 			});
 		} else {
 			return_data = posts.map((post) => {
-				if (post.name.toLowerCase().includes(query.toLowerCase()) || post.building.toLowerCase().includes(query.toLowerCase())) {
-					let href = `/rooms/${post.id}`
+				if (
+					post.name.toLowerCase().includes(query.toLowerCase()) ||
+					post.building.toLowerCase().includes(query.toLowerCase())
+				) {
+					let href = `/rooms/${post.id}`;
 					return (
 						<Link href={href}>
-							<Col className='link pt-1' md={4} key={post.id}>
+							<Col className="link pt-1" md={4} key={post.id}>
 								<Card>
-									<Card.Title><h3>{post.name}</h3></Card.Title>
+									<Card.Title>
+										<h3>{post.name}</h3>
+									</Card.Title>
 								</Card>
 							</Col>
-						</Link >
-					)
+						</Link>
+					);
 				}
 			});
 		}
@@ -60,9 +71,7 @@ export default function Search() {
 					placeholder="Zoeken"
 				/>
 			</form>
-			<Row>
-				{data}
-			</Row>
+			<Row>{data}</Row>
 		</>
 	);
 }
