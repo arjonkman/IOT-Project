@@ -9,18 +9,18 @@ export default function Home() {
 				<title>Ettudo - Home</title>
 			</Head>
 			<Row className="mx-0 p-4 justify-content-center text-center vh-100">
-				<Col xs={6}>
+				<Col md={6}>
 					<Card>
 						<Card.Body>
 							<Card.Title>
-								<b style={{ fontSize: '3rem' }}>Informatie</b>
+								<b style={{ fontSize: '3rem' }}>Tips</b>
 							</Card.Title>
 							<Card.Text>Currently under development</Card.Text>
 						</Card.Body>
 					</Card>
 				</Col>
-				<Col xs={6}>
-					<b style={{ fontSize: '3rem' }}>Ruimtes</b>
+				<Col md={6}>
+					<b style={{ fontSize: '3rem' }}>Rooms</b>
 					<Search />
 				</Col>
 			</Row>
