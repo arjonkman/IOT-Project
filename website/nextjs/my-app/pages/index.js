@@ -42,8 +42,8 @@ export default function Home() {
 							<Card.Title>
 								<b style={{ fontSize: '3rem' }}>Tips</b>
 							</Card.Title>
-							{tips.map((tip) => (
-								<>
+							{tips.map((tip, index) => (
+								<div key={index}>
 									<br />
 									<Card>
 										<Card.Body>
@@ -57,7 +57,7 @@ export default function Home() {
 											</Card.Text>
 										</Card.Body>
 									</Card>
-								</>
+								</div>
 							))}
 						</Card.Body>
 					</Card>

@@ -19,7 +19,7 @@ export default function Search() {
 			return_data = posts.map((post) => {
 				let href = `/rooms/${post.id}`;
 				return (
-					<Link href={href}>
+					<Link key={post.id} href={href}>
 						<Col className="link pt-1" md={4} key={post.id}>
 							<Card>
 								<Card.Title>
@@ -42,12 +42,16 @@ export default function Search() {
 				) {
 					let href = `/rooms/${post.id}`;
 					return (
-						<Link href={href}>
+						<Link key={post.id} href={href}>
 							<Col className="link pt-1" md={4} key={post.id}>
 								<Card>
 									<Card.Title>
 										<h3>{post.name}</h3>
 									</Card.Title>
+									<Card.Subtitle>
+										<i>{post.building}</i>
+									</Card.Subtitle>
+									<Card.Img src="/bulb.svg" />
 								</Card>
 							</Col>
 						</Link>
