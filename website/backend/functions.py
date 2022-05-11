@@ -8,3 +8,7 @@ def get_rooms():
         {'id': 4, 'name': 'Room 4', 'building': 'Building 4'},
         {'id': 5, 'name': 'Room 5', 'building': 'Building 3'},
     ]
+
+
+def light_intensity():
+    pass
