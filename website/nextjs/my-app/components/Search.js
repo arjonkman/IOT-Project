@@ -1,16 +1,14 @@
-import { Form, InputGroup, FormControl, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 
-// create a search component that can be used to search for rooms
+function handleChange(e) {
+    console.log(e.target.value);
+}
+
 export default function Search() {
     return (
-        <Form action="/" method="get">
-            <input
-            type="text"
-            id="header-search"
-            placeholder="Zoek een kamer"
-            name="kamer" 
-            />
-        </Form>
-   );
+        <form>
+            <Form.Control onChange={handleChange} type='text' placeholder='Search' />
+        </form>
+    );
 }
