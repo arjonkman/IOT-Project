@@ -7,20 +7,20 @@ export default function Search() {
 
 	function getData(query) {
 		const posts = [
-			{ id: '1', name: 'A201', building: 'ZP11' },
-			{ id: '2', name: 'A225', building: 'ZP11' },
-			{ id: '3', name: 'A125', building: 'ZP11' },
-			{ id: '4', name: 'A147', building: 'ZP11' },
-			{ id: '5', name: 'D211', building: 'ZP11' },
-			{ id: '6', name: 'D225', building: 'ZP11' },
-			{ id: '7', name: 'D125', building: 'ZP11' },
-			{ id: '8', name: 'D147', building: 'ZP11' },
-			{ id: '9', name: 'D211', building: 'ZP11' },
-			{ id: '10', name: 'D225', building: 'ZP11' },
-			{ id: '11', name: 'U132', building: 'ZP07' },
-			{ id: '12', name: 'U133', building: 'ZP07' },
-			{ id: '13', name: 'U134', building: 'ZP07' },
-			{ id: '14', name: 'U135', building: 'ZP07' },
+			{ id: 'A201_ZP11', name: 'A201', building: 'ZP11' },
+			{ id: 'A225_ZP11', name: 'A225', building: 'ZP11' },
+			{ id: 'A124_ZP11', name: 'A125', building: 'ZP11' },
+			{ id: 'A147_ZP11', name: 'A147', building: 'ZP11' },
+			{ id: 'D211_ZP11', name: 'D211', building: 'ZP11' },
+			{ id: 'D225_ZP11', name: 'D225', building: 'ZP11' },
+			{ id: 'D125_ZP11', name: 'D125', building: 'ZP11' },
+			{ id: 'D147_ZP11', name: 'D147', building: 'ZP11' },
+			{ id: 'D211_ZP11', name: 'D211', building: 'ZP11' },
+			{ id: 'D225_ZP11', name: 'D225', building: 'ZP11' },
+			{ id: 'U132_ZP07', name: 'U132', building: 'ZP07' },
+			{ id: 'U133_ZP07', name: 'U133', building: 'ZP07' },
+			{ id: 'U134_ZP07', name: 'U134', building: 'ZP07' },
+			{ id: 'U135_ZP07', name: 'U135', building: 'ZP07' },
 		];
 
 		var return_data = [];
