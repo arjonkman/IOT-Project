@@ -15,8 +15,6 @@ export default function Navigation() {
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="me-auto">
 					<Nav.Link href="/">Home</Nav.Link>
-					<Nav.Link href="/rooms">Ruimtes</Nav.Link>
-					<Nav.Link href="/export">Exporteer</Nav.Link>
 				</Nav>
 				<Nav>
 					{/* Check if you are logged in or not, if not then show the login button */}
