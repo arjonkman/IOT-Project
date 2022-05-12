@@ -8,11 +8,20 @@ def get_rooms():
     """
     Returns a list of all rooms."""
     return [
-        {'id': 1, 'name': 'Room 1', 'building': 'Building 1'},
-        {'id': 2, 'name': 'Room 2', 'building': 'Building 2'},
-        {'id': 3, 'name': 'Room 3', 'building': 'Building 2'},
-        {'id': 4, 'name': 'Room 4', 'building': 'Building 4'},
-        {'id': 5, 'name': 'Room 5', 'building': 'Building 3'},
+        {'id': 'A201_ZP11', 'name': 'A201', 'building': 'ZP11'},
+        {'id': 'A225_ZP11', 'name': 'A225', 'building': 'ZP11'},
+        {'id': 'A124_ZP11', 'name': 'A125', 'building': 'ZP11'},
+        {'id': 'A147_ZP11', 'name': 'A147', 'building': 'ZP11'},
+        {'id': 'D211_ZP11', 'name': 'D211', 'building': 'ZP11'},
+        {'id': 'D225_ZP11', 'name': 'D225', 'building': 'ZP11'},
+        {'id': 'D125_ZP11', 'name': 'D125', 'building': 'ZP11'},
+        {'id': 'D147_ZP11', 'name': 'D147', 'building': 'ZP11'},
+        {'id': 'D211_ZP11', 'name': 'D211', 'building': 'ZP11'},
+        {'id': 'D225_ZP11', 'name': 'D225', 'building': 'ZP11'},
+        {'id': 'U132_ZP07', 'name': 'U132', 'building': 'ZP07'},
+        {'id': 'U133_ZP07', 'name': 'U133', 'building': 'ZP07'},
+        {'id': 'U134_ZP07', 'name': 'U134', 'building': 'ZP07'},
+        {'id': 'U135_ZP07', 'name': 'U135', 'building': 'ZP07'},
     ]
 
 
