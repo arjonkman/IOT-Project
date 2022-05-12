@@ -1,21 +1,7 @@
-import threading
-from time import sleep
-import json
-import csv
-from flask import jsonify
-
-
-from datetime import datetime, timedelta
 from hashlib import sha1
 import sqlite3
 import os
-
-
-import threading
-from time import sleep
-import json
 import csv
-from flask import jsonify
 
 
 def get_rooms():
@@ -30,20 +16,9 @@ def get_rooms():
     ]
 
 
-
-class Lux:
-    def __init__(self, filelocation='./Webtech_Studeerkamer_A81758FFFE053FDB-Illuminance.csv', timeframe=360):
+class Illuminance:
+    def __init__(self, filelocation):
         self.filelocation = filelocation
-        self.timeframe = timeframe
-        self.data = []
-        self.to_json()
-        self.thread = threading.Thread(target=self.runner, daemon=True)
-        self.thread.start()
-
-    def runner(self):
-        while True:
-            self.fetch_data()
-            sleep(self.timeframe)
 
     def to_json(self):
         headerData = []
@@ -73,49 +48,36 @@ class Lux:
                 })
         return [headerData, valueData]
 
-    def fetch_data(self):
-        if self.filelocation[self.filelocation.index('.'):] == '.csv':
-            self.data = self.to_json()
-        else:
-            with open(self.filelocation, 'r') as file:
-                self.data = json.load(file)
-
-    def get(self):
-        return self.data
+    def get_add(self):
+        header, value = self.to_json()
+        print(value[0]['value'])
+        return float(400 - float(value[0]['value']))
 
 
-def light_intensity():
-    """ a function that converts light intensity values to difference needed
-    """ 
-    lux_needed = []
+class Database:
+    def __init__(self, database):
+        self.database = database
 
-    lux_data = Lux(filelocation='Webtech_Studeerkamer_A81758FFFE053FDB-Illuminance.csv', timeframe=1)
-    lux_data_json = lux_data.to_json()
+    def login(self, email, password):
+        with sqlite3.connect(self.database) as db:
+            res = db.execute(
+                'SELECT * FROM users WHERE email = ? AND password = ?', (email, password))
+            data = res.fetchall()
+            if data == []:
+                return {'message': 'Invalid email or password'}
+            # TODO Create a session on the database and send the session id to the user
+            session_id = sha1(os.urandom(128)).hexdigest()
+        return {'success': True, 'session_id': session_id}
 
-    for i in range(4064):
-        # * lux needed: 300-500, dus we gaan uit van 400 lux
+    def check_session(self, session_id):
+        ...
 
-        lux = lux_data_json[1][i]['value']
-        lux_needed += [int(400 - float(lux))]
-    return lux_needed
+    def destroy_session(self, session_id):
+        ...
+
+    def create_session(self, email):
+        ...
 
 
-def account(email, password):
-    with sqlite3.connect('database.db') as db:
-        res = db.execute(
-            'SELECT * FROM users WHERE email = ? AND password = ?', (email, password))
-        data = res.fetchall()
-        if data == []:
-            return {'message': 'Invalid email or password'}
-        session_id = sha1(os.urandom(128)).hexdigest()
-    return {'success': True, 'session_id': session_id}
-
-    lux_data = Lux(filelocation='Webtech_Studeerkamer_A81758FFFE053FDB-Illuminance.csv', timeframe=1)
-    lux_data_json = lux_data.to_json()
-
-    for i in range(4064):
-        # * lux needed: 300-500, dus we gaan uit van 400 lux
-
-        lux = lux_data_json[1][i]['value']
-        lux_needed += [int(400 - float(lux))]
-    return lux_needed
+if __name__ == '__main__':
+    il = Illuminance('./Webtech_Studeerkamer_A81758FFFE053FDB-Illuminance.csv')
