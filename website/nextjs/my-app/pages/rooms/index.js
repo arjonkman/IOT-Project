@@ -1,10 +1,9 @@
-import { Row, Col } from 'react-bootstrap';
 import Head from 'next/Head';
 
-import Room from '../../components/Room';
-import RoomSearch from '../../components/RoomSearch';
-
 export default function Rooms(props) {
+	if (typeof window !== 'undefined') {
+		window.location.href = '/';
+	}
 	return (
 		<main style={{ minHeight: '100vh' }}>
 			<Head>
