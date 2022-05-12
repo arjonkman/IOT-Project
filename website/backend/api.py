@@ -1,46 +1,37 @@
-import csv
-from flask import Flask, jsonify, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-from datacollector import Humidity
-import os
+from functions import *
 
 app = Flask(__name__)
 CORS(app)
 
-humidity = Humidity(timeframe=1)
+light = Illuminance(
+    './data/Webtech_Studeerkamer_A81758FFFE053FDB-Illuminance.csv')
+db = Database('./database.db')
 
 
-@app.route('/api/humidity/<begin>/<end>/<kamer>', methods=['GET'])
-def api(begin, end, kamer):
-    humidity.filelocation = f'csv/{kamer}.csv'
-    json = jsonify(humidity.get(begin, end))
-    return json
+def auth(func, args):
+    if db.check_session(request.args.get('session_id')):
+        return func(args)
+    else:
+        # TODO destroy session_id on server and on client
+        ...
 
 
-@app.route('/api/csvfiles', methods=['GET'])
-def csvfiles():
-    path = app.root_path + '/csv'
-    list_of_files = []
-
-    for root, dirs, files in os.walk(path):
-        for file in files:
-            list_of_files.append(file)
-
-    return jsonify(list_of_files)
-
-
-@app.route('/api/upload', methods=['POST'])
-def upload():
-    try:
-        file = request.files['file']
-        if '.csv' in file.filename:
-            path = app.root_path + '/csv/'
-            file.save(os.path.join(path, file.filename))
-            return 'File uploaded successfully'
-        return 'File not supported'
-    except:
-        return 'Upload failed'
+@app.route('/api')
+def index():
+    function = request.args.get('function')
+    if function == 'get_rooms':
+        return jsonify(get_rooms())
+    elif function == 'light_intensity':
+        return jsonify(light.get_add())
+    elif function == 'light_data':
+        return jsonify(light.to_json())
+    elif function == 'login':
+        return jsonify(db.login(request.args.get('email'), request.args.get('password')))
+    return jsonify({'error': 'Invalid function'})
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(debug=False)
+    # app.run(debug=False, ssl_context='adhoc') # To run with HTTPS
