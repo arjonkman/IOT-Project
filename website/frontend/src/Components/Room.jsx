@@ -1,35 +1,51 @@
 import { Col, Card, Button } from "react-bootstrap";
 import Bulb from "./Bulb"
+import { useState, useEffect, React } from "react";
 
 
 
+function Room() {
+	let room = 'UNDEFINED'
+	const [light, setLight] = useState('');
+	const [color, setColor] = useState('');
+	function color_percentage () {
+		setColor((light / 4) + '%')
+	}
+	fetch('http://127.0.0.1:5000/api?function=light_intensity')
+			.then((response) => response.json())
+			.then((data) => setLight(100))	
 
-function Room(props) {
-	let room = props.room;
-	let lux = props.lux;
+	useEffect(() => {
+		color_percentage()
+	}, [light]);
+	
+	
+
+		
+	
 	return (
 		<>
 			<Col className="p-0 m-2 room" xs={10} md={4} lg={3}>
-				<Card>
+				<Card onClick={handleClick} id={room} style={{backgroundColor:'yellow', opacity:`${color}`, color:'black'}}>
 					<Bulb/>	
 					<Card.Body>
 						<Card.Title>{room}</Card.Title>
-						<Card.Text>{lux}</Card.Text>
+						<Card.Text>{light}</Card.Text>
+						<Card.Text>{color}</Card.Text>
 					</Card.Body>
-					<Button variant="primary">More information</Button>
 				</Card>
 			</Col>
 		</>
 	)
 }
-// nog mee bezig rick
+// nog mee bezig
 // const firstStop = document.getElementById('F1gst1');
 // const percentage = lux_percentage()
 // firstStop.setAttribute('offset',percentage); 	
 
-Room.defaultProps = {
-	room: "UNDEFINED",
-	lux: "UNDEFINED"
-}
+// Room.defaultProps = {
+// 	room: "UNDEFINED",
+// 	lux: setLight(lux)
+// }
 
 export default Room;

@@ -13,17 +13,6 @@ function RoomContainer(props) {
 	return (
 		<>
 			<Room />
-			<Room />
-			<Room />
-			<Room />
-			<Room />
-			<Room />
-			<Room />
-			<Room />
-			<Room />
-			<Room />
-			<Room />
-			<Room />
 		</>
 	)
 }
