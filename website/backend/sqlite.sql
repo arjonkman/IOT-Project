@@ -18,3 +18,30 @@ CREATE TABLE IF NOT EXISTS `sessions` (
     `created` DATETIME,
     `expires` DATETIME
 );
+-- create rooms table
+CREATE TABLE IF NOT EXISTS `rooms` (
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `name` TEXT,
+    `building` TEXT
+);
+-- insert test data into rooms table
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 1', 'Building 1');
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 2', 'Building 1');
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 3', 'Building 1');
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 4', 'Building 3');
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 5', 'Building 1');
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 6', 'Building 2');
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 7', 'Building 1');
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 8', 'Building 3');
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 9', 'Building 4');
+INSERT INTO `rooms` (`name`, `building`)
+VALUES ('Room 10', 'Building 2');

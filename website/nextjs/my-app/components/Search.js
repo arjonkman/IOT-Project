@@ -3,58 +3,50 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function Search() {
-	const [data, setData] = useState(getData());
-
-	function getData(query) {
-		const posts = [
-			{ id: 'A201_ZP11', name: 'A201', building: 'ZP11' },
-			{ id: 'A225_ZP11', name: 'A225', building: 'ZP11' },
-			{ id: 'A124_ZP11', name: 'A125', building: 'ZP11' },
-			{ id: 'A147_ZP11', name: 'A147', building: 'ZP11' },
-			{ id: 'A211_ZP11', name: 'A211', building: 'ZP11' },
-			{ id: 'D125_ZP11', name: 'D125', building: 'ZP11' },
-			{ id: 'D147_ZP11', name: 'D147', building: 'ZP11' },
-			{ id: 'D211_ZP11', name: 'D211', building: 'ZP11' },
-			{ id: 'D225_ZP11', name: 'D225', building: 'ZP11' },
-			{ id: 'U132_ZP07', name: 'U132', building: 'ZP07' },
-			{ id: 'U133_ZP07', name: 'U133', building: 'ZP07' },
-			{ id: 'U134_ZP07', name: 'U134', building: 'ZP07' },
-			{ id: 'U135_ZP07', name: 'U135', building: 'ZP07' },
-		];
-
-		const [light, setLight] = useState('');
-		const [color, setColor] = useState('');
-		function color_percentage() {
-			setColor(light / 4 + '%');
-		}
+	const [data, setData] = useState(<></>);
+	const [posts, setPosts] = useState([]);
+	useEffect(() => {
+		fetch('http://127.0.0.1:5000/api?function=get_rooms')
+			.then((res) => res.json())
+			.then((data) => setPosts(data));
 		fetch('http://127.0.0.1:5000/api?function=light_intensity')
 			.then((response) => response.json())
 			.then((data) => setLight(data));
+	}, []);
 
-		useEffect(() => {
-			color_percentage();
-		}, [light]);
+	useEffect(() => {
+		setData(getData());
+	}, [posts]);
 
+	const [light, setLight] = useState('');
+	const [color, setColor] = useState('0');
+	
+
+	function color_percentage() {
+		setColor(light / 4 + '%');
+	}
+
+	useEffect(() => {
+		color_percentage();
+	}, [light]);
+
+	function getData(query) {
 		var return_data = [];
 		if (!query) {
 			return_data = posts.map((post) => {
-				let href = `/rooms/${post.id}`;
+				let href = `/rooms/${post[1]}_${post[2]}`
+					.replace(/ /g, '_')
+					.toLowerCase();
 				return (
-					<Link key={post.id} href={href}>
+					<Link key={post[0]} href={href}>
 						<Col className="link pt-1" md={4}>
-							<Card
-								style={{
-									backgroundColor: 'yellow',
-									opacity: `${color}`,
-									color: 'black',
-								}}
-							>
+							<Card>
 								<Card.Img src="/bulb.svg" />
 								<Card.Title>
-									<h3>{post.name}</h3>
+									<h3>{post[1]}</h3>
 								</Card.Title>
 								<Card.Subtitle>
-									<i>{post.building}</i>
+									<i>{post[2]}</i>
 								</Card.Subtitle>
 							</Card>
 						</Col>
@@ -64,26 +56,22 @@ export default function Search() {
 		} else {
 			return_data = posts.map((post) => {
 				if (
-					post.name.toLowerCase().includes(query.toLowerCase()) ||
-					post.building.toLowerCase().includes(query.toLowerCase())
+					post[1].toLowerCase().includes(query.toLowerCase()) ||
+					post[2].toLowerCase().includes(query.toLowerCase())
 				) {
-					let href = `/rooms/${post.id}`;
+					let href = `/rooms/${post[1]}_${post[2]}`
+						.replace(/ /g, '_')
+						.toLowerCase();
 					return (
-						<Link key={post.id} href={href}>
+						<Link key={post[0]} href={href}>
 							<Col className="link pt-1" md={4}>
-								<Card
-									style={{
-										backgroundColor: 'yellow',
-										opacity: `${color}`,
-										color: 'black',
-									}}
-								>
+								<Card>
 									<Card.Img src="/bulb.svg" />
 									<Card.Title>
-										<h3>{post.name}</h3>
+										<h3>{post[1]}</h3>
 									</Card.Title>
 									<Card.Subtitle>
-										<i>{post.building}</i>
+										<i>{post[2]}</i>
 									</Card.Subtitle>
 								</Card>
 							</Col>
