@@ -1,5 +1,5 @@
 import { Row, Col, Card, Form } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function Search() {
@@ -22,15 +22,33 @@ export default function Search() {
 			{ id: 'U135_ZP07', name: 'U135', building: 'ZP07' },
 		];
 
-		var return_data = [];
+		const [light, setLight] = useState('');
+		const [color, setColor] = useState('');
+		function color_percentage() {
+			setColor(light / 4 + '%');
+		}
+		fetch('http://127.0.0.1:5000/api?function=light_intensity')
+			.then((response) => response.json())
+			.then((data) => setLight(data));
 
+		useEffect(() => {
+			color_percentage();
+		}, [light]);
+
+		var return_data = [];
 		if (!query) {
 			return_data = posts.map((post) => {
 				let href = `/rooms/${post.id}`;
 				return (
 					<Link key={post.id} href={href}>
 						<Col className="link pt-1" md={4}>
-							<Card>
+							<Card
+								style={{
+									backgroundColor: 'yellow',
+									opacity: `${color}`,
+									color: 'black',
+								}}
+							>
 								<Card.Img src="/bulb.svg" />
 								<Card.Title>
 									<h3>{post.name}</h3>
@@ -53,7 +71,13 @@ export default function Search() {
 					return (
 						<Link key={post.id} href={href}>
 							<Col className="link pt-1" md={4}>
-								<Card>
+								<Card
+									style={{
+										backgroundColor: 'yellow',
+										opacity: `${color}`,
+										color: 'black',
+									}}
+								>
 									<Card.Img src="/bulb.svg" />
 									<Card.Title>
 										<h3>{post.name}</h3>
