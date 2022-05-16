@@ -1,5 +1,8 @@
 import { Col, Card, Button } from "react-bootstrap";
-import Bulb from "../svg/bulb.svg";
+import Bulb from "./Bulb"
+
+
+
 
 function Room(props) {
 	let room = props.room;
@@ -8,7 +11,7 @@ function Room(props) {
 		<>
 			<Col className="p-0 m-2 room" xs={10} md={4} lg={3}>
 				<Card>
-					<Card.Img variant="top" src={Bulb} />
+					<Bulb/>	
 					<Card.Body>
 						<Card.Title>{room}</Card.Title>
 						<Card.Text>{lux}</Card.Text>
@@ -19,6 +22,10 @@ function Room(props) {
 		</>
 	)
 }
+// nog mee bezig rick
+// const firstStop = document.getElementById('F1gst1');
+// const percentage = lux_percentage()
+// firstStop.setAttribute('offset',percentage); 	
 
 Room.defaultProps = {
 	room: "UNDEFINED",
