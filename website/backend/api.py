@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)
 
 light = Illuminance(
-    './data/Webtech_Studeerkamer_A81758FFFE053FDB-Illuminance.csv')
+    './Webtech_Studeerkamer_A81758FFFE053FDB-Illuminance.csv')
 db = Database('./database.db')
 
 
