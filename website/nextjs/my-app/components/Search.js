@@ -20,11 +20,20 @@ export default function Search() {
 
 	const [light, setLight] = useState('');
 	const [color, setColor] = useState('0');
-	
+
+	const cardStyle = {
+		backgroundColor: `rgba(246,190,0, ${color})`,
+		color: 'white',
+		borderRadius: '15px',
+	};
 
 	function color_percentage() {
 		setColor(light / 4 + '%');
 	}
+
+	useEffect(() => {
+		setData(getData());
+	}, [color]);
 
 	useEffect(() => {
 		color_percentage();
@@ -39,13 +48,13 @@ export default function Search() {
 					.toLowerCase();
 				return (
 					<Link key={post[0]} href={href}>
-						<Col className="link pt-1" md={4}>
-							<Card>
+						<Col className="link pt-4" md={4}>
+							<Card style={cardStyle}>
 								<Card.Img src="/bulb.svg" />
 								<Card.Title>
 									<h3>{post[1]}</h3>
 								</Card.Title>
-								<Card.Subtitle>
+								<Card.Subtitle className="pb-2">
 									<i>{post[2]}</i>
 								</Card.Subtitle>
 							</Card>
@@ -64,13 +73,13 @@ export default function Search() {
 						.toLowerCase();
 					return (
 						<Link key={post[0]} href={href}>
-							<Col className="link pt-1" md={4}>
-								<Card>
+							<Col className="link pt-4" md={4}>
+								<Card style={cardStyle}>
 									<Card.Img src="/bulb.svg" />
 									<Card.Title>
 										<h3>{post[1]}</h3>
 									</Card.Title>
-									<Card.Subtitle>
+									<Card.Subtitle className="pb-2">
 										<i>{post[2]}</i>
 									</Card.Subtitle>
 								</Card>
@@ -89,7 +98,7 @@ export default function Search() {
 
 	return (
 		<>
-			<form method="GET" action="/rooms">
+			<form method="GET" action="/rooms" style={{ borderRadius: '15px' }}>
 				<Form.Control
 					onChange={handleChange}
 					type="text"

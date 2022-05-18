@@ -40,7 +40,7 @@ export default function Home() {
 			</Head>
 			<Row className="mx-0 p-4 justify-content-center text-center">
 				<Col md={6}>
-					<Card style={{ minHeight: '70vh' }}>
+					<Card style={{ minHeight: '70vh', borderRadius: '15px' }}>
 						<Card.Body>
 							<Card.Title>
 								<b style={{ fontSize: '3rem' }}>Tips</b>
