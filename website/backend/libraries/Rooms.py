@@ -29,7 +29,7 @@ class Rooms():
     def light_intensity(self, roomId):
         try:
             data = self.db.execute(
-                "SELECT Intensity FROM Light WHERE RoomId = ? ORDER BY Date", [roomId])
+                "SELECT Data FROM Light WHERE RoomId = ? ORDER BY Date", [roomId])
             return data
-        except Exception:
-            return False
+        except Exception as e:
+            return e
