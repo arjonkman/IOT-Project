@@ -1,5 +1,5 @@
 import { Row, Col, Card } from 'react-bootstrap';
-import Head from 'next/Head';
+import Head from 'next/head';
 import Search from '../components/Search';
 
 import { useCookies } from 'react-cookie';

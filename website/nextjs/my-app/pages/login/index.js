@@ -1,5 +1,5 @@
 import { Form, Row, Col, Button } from 'react-bootstrap';
-import Head from 'next/Head';
+import Head from 'next/head';
 import sha256 from 'crypto-js/sha256';
 import { useCookies } from 'react-cookie';
 
