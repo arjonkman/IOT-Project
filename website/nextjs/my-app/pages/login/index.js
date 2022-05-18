@@ -23,11 +23,11 @@ export default function Login() {
 		const passwordEncrypted = encrypt(password);
 
 		fetch(
-			`http://193.42.11.96:5000/api?function=login&email=${email}&password=${passwordEncrypted}`
+			`http://localhost:5000/api?function=login&email=${email}&password=${passwordEncrypted}`
 		)
 			.then((response) => response.json())
 			.then((data) => {
-				if (data.success) {
+				if (data.status == 'OK') {
 					setCookie('session_id', data.session_id, {
 						path: '/',
 						maxAge: 3600,

@@ -1,37 +1,52 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from functions import *
+import threading
+
+from libraries.Database import Database
+from libraries.Rooms import Rooms
+from libraries.Sessions import Sessions
+from libraries.Account import Account
 
 app = Flask(__name__)
 CORS(app)
 
-light = Illuminance(
-    './Webtech_Studeerkamer_A81758FFFE053FDB-Illuminance.csv')
 db = Database('./database.db')
+rooms = Rooms(db)
+sessions = Sessions(db)
+account = Account(db)
 
 
-def auth(func, args):
-    if db.check_session(request.args.get('session_id')):
-        return func(args)
-    else:
-        # TODO destroy session_id on server and on client
-        ...
+def auth(parameters, func, args=None):
+    if not sessions.check_session(parameters.get('session_id')):
+        # Delete session from database and send an status message for the client
+        sessions.delete_session(parameters.get('session_id'))
+        return {'status': 'session_id invalid'}
+    threading.Thread(
+        target=sessions.update_sessions, args=(parameters.get('session_id'),)).start()
+    return func(args)
 
 
-@app.route('/api')
+@app.route('/api', methods=['GET'])
 def index():
+    session_id = request.args.get('session_id')
     function = request.args.get('function')
-    if function == 'get_rooms':
-        return jsonify(get_rooms())
-    elif function == 'light_intensity':
-        return jsonify(light.get_add())
-    elif function == 'light_data':
-        return jsonify(light.to_json())
-    elif function == 'login':
-        return jsonify(db.login(request.args.get('email'), request.args.get('password')))
-    return jsonify({'error': 'Invalid function'})
+    if function == None:
+        return jsonify({'error': 'function not set'})
+    if session_id is not None:
+        if function.upper() == 'GET_ROOMS':
+            return jsonify(auth(request.args, rooms.get_rooms))
+    if function.upper() == 'LOGIN':
+        user = account.login(request.args)
+        if user is not []:
+            return jsonify(sessions.create_session(user[0]))
+        return jsonify({'error': 'Incorrect Email or Username'})
+    if function.upper() == 'LIGHT_INTENSITY':
+        return jsonify(auth(request.args, rooms.light_intensity, request.args.get('id')))
+    if function.upper() == 'DELETE_SESSION':
+        return jsonify(sessions.delete_session(request.args.get('session_id')))
+    return jsonify({'error': 'You have no access to this API'})
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False)
+    app.run(debug=False)
     # app.run(debug=False, ssl_context='adhoc') # To run with HTTPS

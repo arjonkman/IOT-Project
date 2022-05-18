@@ -1,15 +1,17 @@
 import { Row, Col, Card, Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useCookies } from 'react-cookie';
 
 export default function Search() {
+	const [cookies, setCookie, removeCookie] = useCookies(['session_id']);
 	const [data, setData] = useState(<></>);
 	const [posts, setPosts] = useState([]);
 	useEffect(() => {
-		fetch('http://193.42.11.96:5000/api?function=get_rooms')
+		fetch(`http://localhost:5000/api?function=GET_ROOMS&session_id=${cookies['session_id']}`)
 			.then((res) => res.json())
 			.then((data) => setPosts(data));
-		fetch('http://193.42.11.96:5000/api?function=light_intensity')
+		fetch(`http://localhost:5000/api?function=LIGHT_INTENSITY&session_id=${cookies['session_id']}`)
 			.then((response) => response.json())
 			.then((data) => setLight(data));
 	}, []);
@@ -42,6 +44,10 @@ export default function Search() {
 	function getData(query) {
 		var return_data = [];
 		if (!query) {
+			if (posts.status == 'session_id invalid') {
+				removeCookie('session_id');
+				return;
+			}
 			return_data = posts.map((post) => {
 				let href = `/rooms/${post[1]}_${post[2]}`
 					.replace(/ /g, '_')
