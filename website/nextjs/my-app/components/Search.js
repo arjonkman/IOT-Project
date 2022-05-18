@@ -6,10 +6,10 @@ export default function Search() {
 	const [data, setData] = useState(<></>);
 	const [posts, setPosts] = useState([]);
 	useEffect(() => {
-		fetch('http://127.0.0.1:5000/api?function=get_rooms')
+		fetch('http://193.42.11.96:5000/api?function=get_rooms')
 			.then((res) => res.json())
 			.then((data) => setPosts(data));
-		fetch('http://127.0.0.1:5000/api?function=light_intensity')
+		fetch('http://193.42.11.96:5000/api?function=light_intensity')
 			.then((response) => response.json())
 			.then((data) => setLight(data));
 	}, []);
