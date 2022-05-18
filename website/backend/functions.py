@@ -1,7 +1,7 @@
-from hashlib import sha1
-import sqlite3
-import os
 import csv
+import os
+import sqlite3
+from hashlib import sha1
 
 
 def get_rooms():
