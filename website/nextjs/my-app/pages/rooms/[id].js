@@ -7,7 +7,7 @@ export default function id(props) {
 	const [room, setRoom] = useState(null);
 
 	useEffect(() => {
-		fetch(`http://localhost:5000/api?function=get_room&id=${id}`)
+		fetch(`https://ettudo.com:2053/api?function=get_room&id=${id}`)
 			.then(response => response.json())
 			.then(data => {
 				setRoom(data);

@@ -8,10 +8,10 @@ export default function Search() {
 	const [data, setData] = useState(<></>);
 	const [posts, setPosts] = useState([]);
 	useEffect(() => {
-		fetch(`http://localhost:5000/api?function=GET_ROOMS&session_id=${cookies['session_id']}`)
+		fetch(`https://ettudo.com:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}`)
 			.then((res) => res.json())
 			.then((data) => setPosts(data));
-		fetch(`http://localhost:5000/api?function=LIGHT_INTENSITY&session_id=${cookies['session_id']}`)
+		fetch(`https://ettudo.com:2053/api?function=LIGHT_INTENSITY&session_id=${cookies['session_id']}`)
 			.then((response) => response.json())
 			.then((data) => setLight(data));
 	}, []);

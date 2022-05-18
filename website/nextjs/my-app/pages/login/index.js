@@ -23,7 +23,7 @@ export default function Login() {
 		const passwordEncrypted = encrypt(password);
 
 		fetch(
-			`http://localhost:5000/api?function=login&email=${email}&password=${passwordEncrypted}`
+			`https://ettudo.com:2053/api?function=login&email=${email}&password=${passwordEncrypted}`
 		)
 			.then((response) => response.json())
 			.then((data) => {

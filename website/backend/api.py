@@ -48,5 +48,5 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
-    # app.run(debug=False, ssl_context='adhoc') # To run with HTTPS
+    app.run(debug=False, host='0.0.0.0', ssl_context=('/etc/letsencrypt/live/ettudo.com-0001/fullchain.pem',
+            '/etc/letsencrypt/live/ettudo.com-0001/privkey.pem'), port=2053)
