@@ -6,11 +6,11 @@ class Rooms():
         self.db.execute(
             "INSERT INTO Room (Name, Building) VALUES (?, ?)", [name, building])
 
-    def get_rooms(self, none=None):
-        # If the function has no arguments, then add a none argument for the parent function
-        data = self.db.execute("SELECT * FROM Room")
-        return data
-
+    def get_rooms(self, room):
+        if room == 'all':
+            return self.db.execute("SELECT * FROM Room")
+        return self.db.execute("SELECT * FROM Room WHERE Id = ?", [room])
+        
     def update_room(self, id, name, building):
         try:
             self.db.execute(
