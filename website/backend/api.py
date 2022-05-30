@@ -34,7 +34,7 @@ def index():
         return jsonify({'error': 'function not set'})
     if session_id is not None:
         if function.upper() == 'GET_ROOMS':
-            return jsonify(auth(request.args, rooms.get_rooms))
+            return jsonify(auth(request.args, rooms.get_rooms, request.args.get('room')))
     if function.upper() == 'LOGIN':
         user = account.login(request.args)
         if user is not []:

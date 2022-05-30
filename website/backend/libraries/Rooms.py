@@ -6,11 +6,11 @@ class Rooms():
         self.db.execute(
             "INSERT INTO Room (Name, Building) VALUES (?, ?)", [name, building])
 
-    def get_rooms(self, room):
+    def get_rooms(self, room='all'):
         if room == 'all':
             return self.db.execute("SELECT * FROM Room")
         return self.db.execute("SELECT * FROM Room WHERE Id = ?", [room])
-        
+
     def update_room(self, id, name, building):
         try:
             self.db.execute(
