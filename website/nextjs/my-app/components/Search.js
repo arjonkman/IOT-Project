@@ -38,7 +38,7 @@ export default function Search() {
 
 	function color_percentage() {
 		for (let i = 0; i < roomData.length; i++) {
-			if (roomData[i].type === 'Light') {
+			if (roomData[i].type === 'light') {
 				setLight(roomData[i].data);
 				break;
 			}
@@ -51,6 +51,7 @@ export default function Search() {
 	}, [color]);
 
 	useEffect(() => {
+		console.log(roomData);
 		color_percentage();
 	}, [roomData]);
 
