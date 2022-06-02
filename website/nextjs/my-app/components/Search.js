@@ -8,10 +8,12 @@ export default function Search() {
 	const [data, setData] = useState(<></>);
 	const [posts, setPosts] = useState([]);
 	useEffect(() => {
-		fetch(`https://ettudo.com:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}`)
+		fetch(`http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`)
 			.then((res) => res.json())
 			.then((data) => setPosts(data));
-		fetch(`https://ettudo.com:2053/api?function=LIGHT_INTENSITY&session_id=${cookies['session_id']}`)
+		// Dit gaat natuurlijk nooit werken, als je een argument verwacht, en deze dan vervolgens
+		// nooit meegeeft
+		fetch(`http://localhost:2053/api?function=LIGHT_INTENSITY&session_id=${cookies['session_id']}`)
 			.then((response) => response.json())
 			.then((data) => setLight(data));
 	}, []);
@@ -49,9 +51,7 @@ export default function Search() {
 				return;
 			}
 			return_data = posts.map((post) => {
-				let href = `/rooms/${post[1]}_${post[2]}`
-					.replace(/ /g, '_')
-					.toLowerCase();
+				let href = `/rooms/${post[0]}`;
 				return (
 					<Link key={post[0]} href={href}>
 						<Col className="link pt-4" md={4}>
@@ -74,9 +74,7 @@ export default function Search() {
 					post[1].toLowerCase().includes(query.toLowerCase()) ||
 					post[2].toLowerCase().includes(query.toLowerCase())
 				) {
-					let href = `/rooms/${post[1]}_${post[2]}`
-						.replace(/ /g, '_')
-						.toLowerCase();
+					let href = `/rooms/${post[0]}`;
 					return (
 						<Link key={post[0]} href={href}>
 							<Col className="link pt-4" md={4}>

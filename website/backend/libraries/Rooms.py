@@ -31,5 +31,5 @@ class Rooms():
             data = self.db.execute(
                 "SELECT Data FROM Light WHERE RoomId = ? ORDER BY Date", [roomId])
             return data
-        except Exception as e:
-            return e
+        except Exception:
+            return False

@@ -37,7 +37,7 @@ def index():
             return jsonify(auth(request.args, rooms.get_rooms, request.args.get('room')))
     if function.upper() == 'LOGIN':
         user = account.login(request.args)
-        if user is not []:
+        if user != []:
             return jsonify(sessions.create_session(user[0]))
         return jsonify({'error': 'Incorrect Email or Username'})
     if function.upper() == 'LIGHT_INTENSITY':
@@ -48,5 +48,6 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', ssl_context=('/etc/letsencrypt/live/ettudo.com-0001/fullchain.pem',
-            '/etc/letsencrypt/live/ettudo.com-0001/privkey.pem'), port=2053)
+    app.run(debug=False, host='0.0.0.0',  port=2053)
+    # app.run(debug=False, host='0.0.0.0', ssl_context=('/etc/letsencrypt/live/ettudo.com-0001/fullchain.pem',
+    #         '/etc/letsencrypt/live/ettudo.com-0001/privkey.pem'), port=2053)
