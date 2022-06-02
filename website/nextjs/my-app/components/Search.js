@@ -51,7 +51,6 @@ export default function Search() {
 	}, [color]);
 
 	useEffect(() => {
-		console.log(roomData);
 		color_percentage();
 	}, [roomData]);
 

@@ -27,8 +27,7 @@ export default function id() {
 					return (
 						<div className="card">
 							<div className="card-body">
-								<h5 className="card-title">{roomData.name}</h5>
-								<p className="card-text">{roomData.type}</p>
+								<h5 className="card-title">{roomData.type}</h5>
 								<p className="card-text">{roomData.data}</p>
 							</div>
 						</div>
