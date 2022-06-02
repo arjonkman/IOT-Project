@@ -40,3 +40,20 @@ class Rooms():
             return dataList
         except Exception:
             return False
+
+    def get_light(self):
+        data = ''
+        try:
+            data = self.db.execute(
+                "SELECT RoomId, Data FROM RoomData WHERE DataType = 'light' ORDER BY Date DESC")
+            L = []
+            ret_data = []
+            for item in data:
+                if item[0] in L:
+                    pass
+                else:
+                    ret_data += [{'roomId': item[0], 'data': item[1]}]
+                    L += [item[0]]
+            return ret_data
+        except Exception:
+            return False

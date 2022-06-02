@@ -42,6 +42,8 @@ def index():
         return jsonify({'error': 'Incorrect Email or Username'})
     if function.upper() == 'DATA':
         return jsonify(auth(request.args, rooms.data, request.args.get('id')))
+    if function.upper() == 'GET_LIGHT':
+        return jsonify(auth(request.args, rooms.get_light, request.args.get('id')))
     if function.upper() == 'DELETE_SESSION':
         return jsonify(sessions.delete_session(request.args.get('session_id')))
     return jsonify({'error': 'You have no access to this API'})

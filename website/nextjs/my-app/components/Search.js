@@ -13,8 +13,6 @@ export default function Search() {
 		)
 			.then((res) => res.json())
 			.then((data) => setPosts(data));
-		// Dit gaat natuurlijk nooit werken, als je een argument verwacht, en deze dan vervolgens
-		// nooit meegeeft
 		fetch(
 			`http://localhost:2053/api?function=DATA&session_id=${cookies['session_id']}&id=1`
 		)
