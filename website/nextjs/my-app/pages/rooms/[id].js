@@ -25,10 +25,12 @@ export default function id() {
 			setRoom(
 				roomData.map((roomData) => {
 					return (
-						<div className="card">
-							<div className="card-body">
-								<h5 className="card-title">{roomData.type}</h5>
-								<p className="card-text">{roomData.data}</p>
+						<div className='col' md={3}>
+							<div className="card">
+								<div className="card-body">
+									<h5 className="card-title">{roomData.type}</h5>
+									<p className="card-text">{roomData.data}</p>
+								</div>
 							</div>
 						</div>
 					);
@@ -37,5 +39,11 @@ export default function id() {
 		}
 	}, [roomData]);
 
-	return <main style={{ minHeight: '100vh' }}>{room}</main>;
+	return (
+		<main style={{ minHeight: '100vh' }}>
+			<div className='row px-3'>
+				{room}
+			</div>
+		</main>
+	);
 }
