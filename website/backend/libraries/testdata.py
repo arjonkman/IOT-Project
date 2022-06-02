@@ -33,7 +33,7 @@ class TestData:
 
     def generate_data(self):
         # return a random value for the given data type
-        return random.randint(0, 100)
+        return random.randint(0, 400)
 
 
 if __name__ == '__main__':

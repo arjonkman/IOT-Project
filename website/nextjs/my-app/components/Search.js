@@ -20,27 +20,17 @@ export default function Search() {
 			.then((data) => setRoomData(data));
 	}, []);
 
-	useEffect(() => {
-		setData(getData());
-	}, [posts]);
-
 	const [roomData, setRoomData] = useState('');
-	const [color, setColor] = useState('0');
-	const [light, setLight] = useState('0');
-
-	const cardStyle = {
-		backgroundColor: `rgba(246,190,0, ${color})`,
-		color: 'white',
-		borderRadius: '15px',
-	};
+	const [color, setColor] = useState({});
 
 	function color_percentage() {
-		for (let i = 0; i < roomData.length; i++) {
-			if (roomData[i].type === 'light') {
-				setLight(roomData[i].data);
-				break;
-			}
-			setColor(light / 4 + '%');
+		if (roomData !== '') {
+			setColor(
+				roomData.map((roomData) => {
+					let procent = roomData.data / 4 + '%';
+					return { room: roomData.roomId, color: procent };
+				})
+			);
 		}
 	}
 
@@ -49,6 +39,7 @@ export default function Search() {
 	}, [color]);
 
 	useEffect(() => {
+		console.log(roomData);
 		color_percentage();
 	}, [roomData]);
 
@@ -61,6 +52,13 @@ export default function Search() {
 			}
 			return_data = posts.map((post) => {
 				let href = `/rooms/${post[0]}`;
+				let cardStyle = {
+					backgroundColor: `rgba(246,190,0, ${
+						color[post[0] - 1].color
+					})`,
+					color: 'white',
+					borderRadius: '15px',
+				};
 				return (
 					<Link key={post[0]} href={href}>
 						<Col className="link pt-4" md={4}>
@@ -84,6 +82,13 @@ export default function Search() {
 					post[2].toLowerCase().includes(query.toLowerCase())
 				) {
 					let href = `/rooms/${post[0]}`;
+					let cardStyle = {
+						backgroundColor: `rgba(246,190,0, ${
+							color[post[0] - 1].color
+						})`,
+						color: 'white',
+						borderRadius: '15px',
+					};
 					return (
 						<Link key={post[0]} href={href}>
 							<Col className="link pt-4" md={4}>
