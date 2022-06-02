@@ -8,22 +8,27 @@ export default function Search() {
 	const [data, setData] = useState(<></>);
 	const [posts, setPosts] = useState([]);
 	useEffect(() => {
-		fetch(`http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`)
+		fetch(
+			`http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`
+		)
 			.then((res) => res.json())
 			.then((data) => setPosts(data));
 		// Dit gaat natuurlijk nooit werken, als je een argument verwacht, en deze dan vervolgens
 		// nooit meegeeft
-		fetch(`http://localhost:2053/api?function=LIGHT_INTENSITY&session_id=${cookies['session_id']}`)
+		fetch(
+			`http://localhost:2053/api?function=DATA&session_id=${cookies['session_id']}&id=1`
+		)
 			.then((response) => response.json())
-			.then((data) => setLight(data));
+			.then((data) => setRoomData(data));
 	}, []);
 
 	useEffect(() => {
 		setData(getData());
 	}, [posts]);
 
-	const [light, setLight] = useState('');
+	const [roomData, setRoomData] = useState('');
 	const [color, setColor] = useState('0');
+	const [light, setLight] = useState('0');
 
 	const cardStyle = {
 		backgroundColor: `rgba(246,190,0, ${color})`,
@@ -32,7 +37,13 @@ export default function Search() {
 	};
 
 	function color_percentage() {
-		setColor(light / 4 + '%');
+		for (let i = 0; i < roomData.length; i++) {
+			if (roomData[i].type === 'Light') {
+				setLight(roomData[i].data);
+				break;
+			}
+			setColor(light / 4 + '%');
+		}
 	}
 
 	useEffect(() => {
@@ -41,7 +52,7 @@ export default function Search() {
 
 	useEffect(() => {
 		color_percentage();
-	}, [light]);
+	}, [roomData]);
 
 	function getData(query) {
 		var return_data = [];

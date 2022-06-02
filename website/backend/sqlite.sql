@@ -20,10 +20,10 @@ CREATE TABLE IF NOT EXISTS `Room` (
     `Floor` INTEGER,
     `Number` INTEGER
 );
-CREATE TABLE IF NOT EXISTS `Light` (
+CREATE TABLE IF NOT EXISTS `RoomData` (
     `Id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `RoomId` INTEGER,
-    `Name` TEXT,
+    `DataType` TEXT,
     `Data` INTEGER,
     `Date` DATE,
     FOREIGN KEY(`RoomId`) REFERENCES `Room`(`Id`)

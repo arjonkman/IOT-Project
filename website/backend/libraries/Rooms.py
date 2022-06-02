@@ -26,10 +26,17 @@ class Rooms():
             return False
         return True
 
-    def light_intensity(self, roomId):
+    def data(self, roomId):
+        dataList = []
         try:
             data = self.db.execute(
-                "SELECT Data FROM Light WHERE RoomId = ? ORDER BY Date", [roomId])
-            return data
+                "SELECT Date, DataType, Data FROM RoomData WHERE RoomId = ? ORDER BY Date LIMIT 3", [roomId])
+            for row in data:
+                date = row[0]
+                type = row[1]
+                data = row[2]
+                dataList += [{'date': date,
+                             'type': type, 'data': data}]
+            return dataList
         except Exception:
             return False

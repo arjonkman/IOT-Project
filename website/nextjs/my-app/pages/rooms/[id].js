@@ -9,12 +9,12 @@ export default function id() {
 	const [room, setRoom] = useState(null);
 
 	useEffect(() => {
-		const id = 'test';
-		fetch(`http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=1`)
-			.then(response => response.json())
-			.then(data => {
+		fetch(
+			`http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&id=${id}`
+		)
+			.then((response) => response.json())
+			.then((data) => {
 				setRoom(data);
-				console.log(data)
 			});
 	}, []);
 

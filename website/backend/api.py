@@ -40,14 +40,14 @@ def index():
         if user != []:
             return jsonify(sessions.create_session(user[0]))
         return jsonify({'error': 'Incorrect Email or Username'})
-    if function.upper() == 'LIGHT_INTENSITY':
-        return jsonify(auth(request.args, rooms.light_intensity, request.args.get('id')))
+    if function.upper() == 'DATA':
+        return jsonify(auth(request.args, rooms.data, request.args.get('id')))
     if function.upper() == 'DELETE_SESSION':
         return jsonify(sessions.delete_session(request.args.get('session_id')))
     return jsonify({'error': 'You have no access to this API'})
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0',  port=2053)
+    app.run(debug=True, host='0.0.0.0',  port=2053)
     # app.run(debug=False, host='0.0.0.0', ssl_context=('/etc/letsencrypt/live/ettudo.com-0001/fullchain.pem',
     #         '/etc/letsencrypt/live/ettudo.com-0001/privkey.pem'), port=2053)
