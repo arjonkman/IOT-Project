@@ -30,14 +30,17 @@ class Rooms():
         dataList = []
         try:
             data = self.db.execute(
-                "SELECT Date, DataType, Data FROM RoomData WHERE RoomId = ? ORDER BY Date LIMIT 3", [roomId])
-            for row in data:
-                date = row[0]
-                type = row[1]
-                data = row[2]
-                dataList += [{'date': date,
-                             'type': type, 'data': data}]
-            return dataList
+                "SELECT Date, DataType, Data FROM RoomData WHERE RoomId = ? ORDER BY Date", [roomId])
+            L = []
+            ret_data = []
+            for item in data:
+                if item[1] in L:
+                    pass
+                else:
+                    ret_data += [{'date': item[0],
+                                  'type': item[1], 'data': item[2]}]
+                    L += [item[1]]
+            return ret_data
         except Exception:
             return False
 
