@@ -6,7 +6,7 @@ export default function id() {
 	const [cookies, setCookie] = useCookies(['session_id']);
 	const router = useRouter();
 	const { id } = router.query;
-	const [roomData, setRoomData] = useState({});
+	const [roomData, setRoomData] = useState([]);
 	const [room, setRoom] = useState(<></>);
 
 	useEffect(() => {
@@ -20,21 +20,23 @@ export default function id() {
 	}, [id]);
 
 	useEffect(() => {
-		if (roomData != {}) {
-			roomData.map((room) => {
-				setRoom(
-					<>
-						<h1>{room.name}</h1>
-						<p>{room.description}</p>
-					</>
-				);
-			});
+		if (roomData !== []) {
+			console.log(roomData);
+			setRoom(
+				roomData.map((roomData) => {
+					return (
+						<div className="card">
+							<div className="card-body">
+								<h5 className="card-title">{roomData.name}</h5>
+								<p className="card-text">{roomData.type}</p>
+								<p className="card-text">{roomData.data}</p>
+							</div>
+						</div>
+					);
+				})
+			);
 		}
 	}, [roomData]);
 
-	return (
-		<main style={{ minHeight: '100vh' }}>
-			{room}
-		</main>
-	);
+	return <main style={{ minHeight: '100vh' }}>{room}</main>;
 }
