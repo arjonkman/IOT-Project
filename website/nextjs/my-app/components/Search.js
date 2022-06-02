@@ -14,7 +14,7 @@ export default function Search() {
 			.then((res) => res.json())
 			.then((data) => setPosts(data));
 		fetch(
-			`http://localhost:2053/api?function=DATA&session_id=${cookies['session_id']}&id=1`
+			`http://localhost:2053/api?function=GET_LIGHT&session_id=${cookies['session_id']}`
 		)
 			.then((response) => response.json())
 			.then((data) => setRoomData(data));

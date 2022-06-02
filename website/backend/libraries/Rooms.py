@@ -41,7 +41,7 @@ class Rooms():
         except Exception:
             return False
 
-    def get_light(self):
+    def get_light(self, none=None):
         data = ''
         try:
             data = self.db.execute(
