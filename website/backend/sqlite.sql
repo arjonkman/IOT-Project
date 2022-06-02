@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `RoomData` (
     `RoomId` INTEGER,
     `DataType` TEXT,
     `Data` INTEGER,
-    `Date` DATE,
+    `Date` DATETIME,
     FOREIGN KEY(`RoomId`) REFERENCES `Room`(`Id`)
 );
 -- insert default user
@@ -78,3 +78,40 @@ INSERT INTO Room (
         `Number`
     )
 VALUES ('A115', 'ZP11', '1', '15');
+-- Insert test data into roomdata table containing temperature humidity and light data
+INSERT INTO RoomData (
+        `RoomId`,
+        `DataType`,
+        `Data`,
+        `Date`
+    )
+VALUES (
+        1,
+        'temperature',
+        23,
+        '2103-06-15 00:00:00'
+    );
+INSERT INTO RoomData (
+        `RoomId`,
+        `DataType`,
+        `Data`,
+        `Date`
+    )
+VALUES (
+        1,
+        'humidity',
+        45,
+        '2103-06-15 00:00:00'
+    );
+INSERT INTO RoomData (
+        `RoomId`,
+        `DataType`,
+        `Data`,
+        `Date`
+    )
+VALUES (
+        1,
+        'light',
+        100,
+        '2103-06-15 00:00:00'
+    );
