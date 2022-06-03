@@ -61,7 +61,7 @@ export default function Search() {
 				};
 				return (
 					<Link key={post[0]} href={href}>
-						<Col className="link pt-4" md={4}>
+						<Col className="link pt-4" md={3} xs={6}>
 							<Card style={cardStyle}>
 								<Card.Img src="/bulb.svg" />
 								<Card.Title>
