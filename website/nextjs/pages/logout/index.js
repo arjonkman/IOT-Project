@@ -12,9 +12,9 @@ export default function logout() {
 		window.location.href = '/';
 	}, []);
 	return (
-		<>
+		<div style={{ minHeight: '95vh' }}>
 			<h1>Logging out</h1>
 			<p>Redirecting you to the logging page</p>
-		</>
+		</div>
 	);
 }

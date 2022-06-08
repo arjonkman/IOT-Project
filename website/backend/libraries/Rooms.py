@@ -27,22 +27,33 @@ class Rooms():
         return True
 
     def data(self, roomId):
-        dataList = []
         try:
-            data = self.db.execute(
-                "SELECT Date, DataType, Data FROM RoomData WHERE RoomId = ? ORDER BY Date", [roomId])
-            L = []
-            ret_data = []
-            for item in data:
-                if item[1] in L:
-                    pass
-                else:
-                    ret_data += [{'date': item[0],
-                                  'type': item[1], 'data': item[2]}]
-                    L += [item[1]]
-            return ret_data
+            data = []
+            light = self.db.execute(
+                'SELECT DataType, Data, Date FROM RoomData WHERE RoomId = ? AND DataType = "light" ORDER BY Date ASC LIMIT 1;', [roomId])
+            temperature = self.db.execute(
+                'SELECT DataType, Data, Date FROM RoomData WHERE RoomId = ? AND DataType = "temperature" ORDER BY Date ASC LIMIT 1;', [roomId])
+            humidity = self.db.execute(
+                'SELECT DataType, Data, Date FROM RoomData WHERE RoomId = ? AND DataType = "humidity" ORDER BY Date ASC LIMIT 1;', [roomId])
+            data += [{
+                'date': light[0][2],
+                'type': light[0][0],
+                'data': light[0][1]
+            }]
+            data += [{
+                'date': temperature[0][2],
+                'type': temperature[0][0],
+                'data': temperature[0][1]
+            }]
+            data += [{
+                'date': humidity[0][2],
+                'type': humidity[0][0],
+                'data': humidity[0][1]
+            }]
+            return data
         except Exception:
             return False
+        return False
 
     def get_light(self, none=None):
         data = ''

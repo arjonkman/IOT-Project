@@ -33,7 +33,6 @@ const tips = [
 ];
 
 export default function Home() {
-	const [cookies, setCookie] = useCookies(['session_id']);
 	return (
 		<main style={{ minHeight: '95vh' }}>
 			<Head>
@@ -73,7 +72,8 @@ export default function Home() {
 				</Col>
 				<Col xs={8}>
 					<b style={{ fontSize: '3rem' }}>Ruimtes</b>
-					<Search />
+					{/* <Search /> */}
+					<Map />
 				</Col>
 			</Row>
 		</main>

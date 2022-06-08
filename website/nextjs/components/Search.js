@@ -53,9 +53,8 @@ export default function Search() {
 			return_data = posts.map((post) => {
 				let href = `/rooms/${post[0]}`;
 				let cardStyle = {
-					backgroundColor: `rgba(246,190,0, ${
-						color[post[0] - 1].color
-					})`,
+					backgroundColor: `rgba(246,190,0, ${color[post[0] - 1].color
+						})`,
 					color: 'white',
 					borderRadius: '15px',
 				};
@@ -83,9 +82,8 @@ export default function Search() {
 				) {
 					let href = `/rooms/${post[0]}`;
 					let cardStyle = {
-						backgroundColor: `rgba(246,190,0, ${
-							color[post[0] - 1].color
-						})`,
+						backgroundColor: `rgba(246,190,0, ${color[post[0] - 1].color
+							})`,
 						color: 'white',
 						borderRadius: '15px',
 					};
