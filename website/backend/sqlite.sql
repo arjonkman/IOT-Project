@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `Session` (
 );
 -- Room
 CREATE TABLE IF NOT EXISTS `Room` (
-    `Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `Id` TEXT PRIMARY KEY NOT NULL,
     `Name` TEXT,
     `Building` TEXT,
     `Floor` INTEGER,
@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `RoomData` (
     `DataType` TEXT,
     `Data` INTEGER,
     `Date` DATETIME,
+    UNIQUE(RoomId, DataType, Date),
     FOREIGN KEY(`RoomId`) REFERENCES `Room`(`Id`)
 );
 -- insert default user
@@ -42,39 +43,30 @@ VALUES (
         '2103-06-15 00:00:00',
         3600
     );
--- insert test data into rooms table
-INSERT INTO Room (
-        `Name`,
-        `Building`,
-        `Floor`,
-        `Number`
-    )
-VALUES ('A111', 'ZP11', '1', '11');
-INSERT INTO Room (
-        `Name`,
-        `Building`,
-        `Floor`,
-        `Number`
-    )
-VALUES ('A112', 'ZP11', '1', '12');
-INSERT INTO Room (
-        `Name`,
-        `Building`,
-        `Floor`,
-        `Number`
-    )
-VALUES ('A113', 'ZP11', '3', '13');
-INSERT INTO Room (
-        `Name`,
-        `Building`,
-        `Floor`,
-        `Number`
-    )
-VALUES ('A114', 'ZP11', '1', '14');
-INSERT INTO Room (
-        `Name`,
-        `Building`,
-        `Floor`,
-        `Number`
-    )
-VALUES ('A115', 'ZP11', '1', '15');
+-- insert test data into rooms using ("A81758FFFE053FD7", "A81758FFFE053FDA", "A81758FFFE053FDB", "A81758FFFE053FDC") as room ids
+INSERT INTO `Room` (`Id`, `Name`, `Building`, `Floor`, `Number`)
+VALUES (
+        'A81758FFFE053FD7',
+        'Room 1',
+        'Building 1',
+        1,
+        1
+    ), (
+        'A81758FFFE053FDA',
+        'Room 2',
+        'Building 1',
+        1,
+        2
+    ), (
+        'A81758FFFE053FDB',
+        'Room 3',
+        'Building 1',
+        1,
+        3
+    ), (
+        'A81758FFFE053FDC',
+        'Room 4',
+        'Building 1',
+        1,
+        4
+    );

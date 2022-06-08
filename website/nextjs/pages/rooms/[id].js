@@ -20,15 +20,17 @@ export default function id() {
 	}, [id]);
 
 	useEffect(() => {
+		console.log(roomData);
 		if (roomData !== []) {
-			console.log(roomData);
 			setRoom(
 				roomData.map((roomData, index) => {
 					return (
-						<div className='col' md={3} key={index}>
+						<div className="col" md={3} key={index}>
 							<div className="card">
 								<div className="card-body">
-									<h5 className="card-title">{roomData.type}</h5>
+									<h5 className="card-title">
+										{roomData.type}
+									</h5>
 									<p className="card-text">{roomData.data}</p>
 								</div>
 							</div>
@@ -41,9 +43,7 @@ export default function id() {
 
 	return (
 		<main style={{ minHeight: '100vh' }}>
-			<div className='row px-3 pt-4'>
-				{room}
-			</div>
+			<div className="row px-3 pt-4">{room}</div>
 		</main>
 	);
 }
