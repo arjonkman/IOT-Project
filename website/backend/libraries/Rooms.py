@@ -27,39 +27,36 @@ class Rooms():
         return True
 
     def data(self, roomId):
+        i = 0
         try:
-            data = []
-            light = self.db.execute(
-                'SELECT DataType, Data, Date FROM RoomData WHERE RoomId = ? AND DataType = "light" ORDER BY Date ASC LIMIT 1;', [roomId])
-            temperature = self.db.execute(
-                'SELECT DataType, Data, Date FROM RoomData WHERE RoomId = ? AND DataType = "temperature" ORDER BY Date ASC LIMIT 1;', [roomId])
-            humidity = self.db.execute(
-                'SELECT DataType, Data, Date FROM RoomData WHERE RoomId = ? AND DataType = "humidity" ORDER BY Date ASC LIMIT 1;', [roomId])
-            data += [{
-                'date': light[0][2],
-                'type': light[0][0],
-                'data': light[0][1]
-            }]
-            data += [{
-                'date': temperature[0][2],
-                'type': temperature[0][0],
-                'data': temperature[0][1]
-            }]
-            data += [{
-                'date': humidity[0][2],
-                'type': humidity[0][0],
-                'data': humidity[0][1]
-            }]
-            return data
-        except Exception:
+            while i < 10:
+                data = []
+                light = self.db.execute(
+                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "illuminance" ORDER BY Date ASC LIMIT 1;', [roomId])
+                temperature = self.db.execute(
+                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "temperature" ORDER BY Date ASC LIMIT 1;', [roomId])
+                humidity = self.db.execute(
+                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "humidity" ORDER BY Date ASC LIMIT 1;', [roomId])
+                print(light)
+                try:
+                    if light[0] is not None:
+                        data += [{'type': 'light', 'data': light[0][0]}]
+                    if temperature[0] is not None:
+                        data += [{'type': 'temperature',
+                                  'data': temperature[0][0]}]
+                    if humidity[0] is not None:
+                        data += [{'type': 'humidity', 'data': humidity[0][0]}]
+                except:
+                    i += 1
+                return data
+        except:
             return False
-        return False
 
     def get_light(self, none=None):
         data = ''
         try:
             data = self.db.execute(
-                "SELECT RoomId, Data FROM RoomData WHERE DataType = 'light' ORDER BY Date DESC")
+                "SELECT RoomId, Data FROM RoomData WHERE DataType = 'illuminance' ORDER BY Date DESC")
             L = []
             ret_data = []
             for item in data:

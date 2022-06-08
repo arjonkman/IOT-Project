@@ -72,8 +72,8 @@ export default function Home() {
 				</Col>
 				<Col xs={8}>
 					<b style={{ fontSize: '3rem' }}>Ruimtes</b>
-					{/* <Search /> */}
-					<Map />
+					<Search />
+					{/* <Map /> */}
 				</Col>
 			</Row>
 		</main>
