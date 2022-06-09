@@ -32,11 +32,11 @@ class Rooms():
             while i < 10:
                 data = []
                 light = self.db.execute(
-                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "illuminance" ORDER BY Date ASC LIMIT 1;', [roomId])
+                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "illuminance" ORDER BY Date DESC LIMIT 1;', [roomId])
                 temperature = self.db.execute(
-                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "temperature" ORDER BY Date ASC LIMIT 1;', [roomId])
+                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "temperature" ORDER BY Date DESC LIMIT 1;', [roomId])
                 humidity = self.db.execute(
-                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "humidity" ORDER BY Date ASC LIMIT 1;', [roomId])
+                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "humidity" ORDER BY Date DESC LIMIT 1;', [roomId])
                 print(light)
                 try:
                     if light[0] is not None:

@@ -9,12 +9,12 @@ export default function Search() {
 	const [posts, setPosts] = useState([]);
 	useEffect(() => {
 		fetch(
-			`http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`
+			`https://ettudo.com:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`
 		)
 			.then((res) => res.json())
 			.then((data) => setPosts(data));
 		fetch(
-			`http://localhost:2053/api?function=GET_LIGHT&session_id=${cookies['session_id']}`
+			`https://ettudo.com:2053/api?function=GET_LIGHT&session_id=${cookies['session_id']}`
 		)
 			.then((response) => response.json())
 			.then((data) => setRoomData(data));
