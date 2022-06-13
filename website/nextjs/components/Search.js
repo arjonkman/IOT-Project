@@ -9,12 +9,12 @@ export default function Search() {
 	const [posts, setPosts] = useState([]);
 	useEffect(() => {
 		fetch(
-			`https://ettudo.com:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`
+			`http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`
 		)
 			.then((res) => res.json())
 			.then((data) => setPosts(data));
 		fetch(
-			`https://ettudo.com:2053/api?function=GET_LIGHT&session_id=${cookies['session_id']}`
+			`http://localhost:2053/api?function=GET_LIGHT&session_id=${cookies['session_id']}`
 		)
 			.then((response) => response.json())
 			.then((data) => setRoomData(data));
@@ -26,21 +26,26 @@ export default function Search() {
 	function color_percentage() {
 		if (roomData !== '') {
 			setColor(
-				roomData.map((roomData) => {
-					let procent = roomData.data / 4 + '%';
-					return { room: roomData.roomId, color: procent };
-				})
+				Object.assign(
+					{},
+					...roomData.map((x) => ({ [x.roomId]: x.data / 4 + '%' }))
+				)
 			);
 		}
 	}
 
 	useEffect(() => {
+		console.log(color);
 		setData(getData());
 	}, [color]);
 
 	useEffect(() => {
 		color_percentage();
 	}, [roomData]);
+
+	useEffect(() => {
+		console.log(posts);
+	}, [posts]);
 
 	function getData(query) {
 		var return_data = [];
@@ -50,11 +55,10 @@ export default function Search() {
 				return;
 			}
 			return_data = posts.map((post) => {
-				let href = `/rooms/${post[0]}`;
+				let id = post[0];
+				let href = `/rooms/${id}`;
 				let cardStyle = {
-					backgroundColor: `rgba(246,190,0, ${
-						color[post[4] - 1].color
-					})`,
+					backgroundColor: `rgba(246,190,0, ${color[id]})`,
 					color: 'white',
 					borderRadius: '15px',
 				};
@@ -80,11 +84,10 @@ export default function Search() {
 					post[1].toLowerCase().includes(query.toLowerCase()) ||
 					post[2].toLowerCase().includes(query.toLowerCase())
 				) {
-					let href = `/rooms/${post[0]}`;
+					let id = post[0];
+					let href = `/rooms/${id}`;
 					let cardStyle = {
-						backgroundColor: `rgba(246,190,0, ${
-							color[post[4] - 1].color
-						})`,
+						backgroundColor: `rgba(246,190,0, ${color[id]})`,
 						color: 'white',
 						borderRadius: '15px',
 					};
