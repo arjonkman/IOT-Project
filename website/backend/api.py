@@ -25,14 +25,14 @@ data.data_to_database()
 schedule.every(1).minutes.do(data.latest_to_database)
 
 
-def auth(parameters, func, args=None):
+def auth(parameters, func, *args):
     if not sessions.check_session(parameters.get('session_id')):
         # Delete session from database and send an status message for the client
         sessions.delete_session(parameters.get('session_id'))
         return {'status': 'session_id invalid'}
     threading.Thread(
         target=sessions.update_sessions, args=(parameters.get('session_id'),)).start()
-    return func(args)
+    return func(*args)
 
 
 @app.route('/api', methods=['GET'])
@@ -50,7 +50,9 @@ def index():
             return jsonify(sessions.create_session(user[0]))
         return jsonify({'error': 'Incorrect Email or Username'})
     if function.upper() == 'DATA':
-        return jsonify(auth(request.args, rooms.data, request.args.get('id')))
+        return jsonify(auth(request.args, rooms.data, request.args.get('id'), request.args.get('type')))
+    if function.upper() == 'LATEST_DATA':
+        return jsonify(auth(request.args, rooms.latest_data, request.args.get('id')))
     if function.upper() == 'GET_LIGHT':
         return jsonify(auth(request.args, rooms.get_light, request.args.get('id')))
     if function.upper() == 'DELETE_SESSION':

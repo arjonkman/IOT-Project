@@ -1,3 +1,6 @@
+import datetime
+
+
 class Rooms():
     def __init__(self, db):
         self.db = db
@@ -26,7 +29,27 @@ class Rooms():
             return False
         return True
 
-    def data(self, roomId):
+    def data(self, roomId, dataType):
+        data = ''
+        ret_data = []
+        try:
+            data = self.db.execute(
+                "SELECT Data, Date FROM RoomData WHERE RoomId = ? AND DataType = ? ORDER BY Date DESC LIMIT 1000", [roomId, dataType])
+            for i in data:
+                time = '%Y-%m-%dT%H:%M:%S-00:00 Amsterdam'
+                date = datetime.datetime.strptime(
+                    i[1], time)
+                date = date.strftime('%Y-%m-%dT%H:%M:%S-00:00')
+                ret_data.append({'data': i[0],
+                                 'date': date})
+            ret_data = ret_data[::-1]
+
+            return ret_data
+        except Exception as e:
+            print(e)
+            return False
+
+    def latest_data(self, roomId):
         i = 0
         try:
             while i < 10:

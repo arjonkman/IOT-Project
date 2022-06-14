@@ -1,39 +1,36 @@
 import { Row, Col, Card, Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import axios from "axios";
+import axios from 'axios';
 
 export default function Tips() {
-    const [cookies, setCookie, removeCookie] = useCookies(['session_id']);
+	const [cookies, setCookie, removeCookie] = useCookies(['session_id']);
 	const [rooms, setRooms] = useState([]);
-    const [deets, setDeets] = useState([]);
-    const data = {}
-    const tips = {}
-	useEffect (() => {
-        fetch(
-            `http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`
-        )
-            .then((res) => res.json())
-            .then((data) => setRooms(data));
-    }, []);
-    useEffect (() => {
-            for (let i = 0; i < rooms.length; i++) {
-                fetch(
-                    `http://localhost:2053/api?function=DATA&session_id=${cookies['session_id']}&id=${rooms[i][0]}`
-                )
-                    .then((res) => res.json())
-                    .then((data) => {
-                        setDeets(data)
-                    });       
-        }
-    }, [rooms, deets]);
-    
+	const [deets, setDeets] = useState([]);
+	const data = {};
+	const tips = {};
+	useEffect(() => {
+		fetch(
+			`http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`
+		)
+			.then((res) => res.json())
+			.then((data) => setRooms(data));
+	}, []);
+	useEffect(() => {
+		for (let i = 0; i < rooms.length; i++) {
+			fetch(
+				`http://localhost:2053/api?function=DATA&session_id=${cookies['session_id']}&id=${rooms[i][0]}`
+			)
+				.then((res) => res.json())
+				.then((data) => {
+					setDeets(data);
+				});
+		}
+	}, [rooms, deets]);
 
-
-
-    return (
-        <Col>
-            {/* <Card
+	return (
+		<Col>
+			{/* <Card
                 style={{
                     minHeight: '70vh',
                     borderRadius: '15px',
@@ -62,6 +59,6 @@ export default function Tips() {
                     ))}
                 </Card.Body>
             </Card> */}
-        </Col>
-    );
+		</Col>
+	);
 }
