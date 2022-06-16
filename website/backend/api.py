@@ -19,10 +19,10 @@ sessions = Sessions(db)
 account = Account(db)
 data = Data(db, 'e-client-hanzehogeschool-01',
             'JZ!oeC13ZqjNOL(c3WhED*RvsQcU!ER5QJf')
-print('Starting server...')
-print('This can take a while...')
-data.data_to_database()
-schedule.every(1).minutes.do(data.latest_to_database)
+# print('Starting server...')
+# print('This can take a while...')
+# data.data_to_database()
+# schedule.every(1).minutes.do(data.latest_to_database)
 
 
 def auth(parameters, func, *args):
@@ -57,6 +57,10 @@ def index():
         return jsonify(auth(request.args, rooms.get_light, request.args.get('id')))
     if function.upper() == 'DELETE_SESSION':
         return jsonify(sessions.delete_session(request.args.get('session_id')))
+    if function.upper() == 'UPDATE_ROOM_NAME':
+        return jsonify(auth(request.args, rooms.update_room_name, request.args.get('id'), request.args.get('name')))
+    if function.upper() == 'GET_ROOM_NAME':
+        return jsonify(auth(request.args, rooms.get_room_name, request.args.get('id')))
     return jsonify({'error': 'You have no access to this API'})
 
 

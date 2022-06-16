@@ -8,7 +8,6 @@ export default function logout() {
 		// Create fetch to delete session id from the database
 		fetch(`http://localhost:2053/api?function=DELETE_SESSION_ID&session_id=${cookies['session_id']}`)
 			.then((res) => res.json())
-			.then((data) => console.log(data));
 		window.location.href = '/';
 	}, []);
 	return (

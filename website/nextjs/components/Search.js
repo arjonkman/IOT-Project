@@ -35,7 +35,6 @@ export default function Search() {
 	}
 
 	useEffect(() => {
-		console.log(color);
 		setData(getData());
 	}, [color]);
 
@@ -44,7 +43,6 @@ export default function Search() {
 	}, [roomData]);
 
 	useEffect(() => {
-		console.log(posts);
 	}, [posts]);
 
 	function getData(query) {

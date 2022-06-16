@@ -56,7 +56,6 @@ export default function Chart() {
 	}, [data]);
 
 	useEffect(() => {
-		console.log(realData);
 		if (realData !== NaN) {
 			setGraph(
 				<ResponsiveContainer height={300}>

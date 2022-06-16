@@ -14,14 +14,21 @@ class Rooms():
             return self.db.execute("SELECT * FROM Room")
         return self.db.execute("SELECT * FROM Room WHERE Id = ?", [room])
 
-    def update_room(self, id, name, building):
+    def update_room_name(self, id, name):
         try:
             self.db.execute(
-                "UPDATE Room SET (Name, Building) VALUES (?, ?) WHERE Id = ?", [name, building, id])
+                "UPDATE Room SET Name = ? WHERE Id = ?", [name, id])
+        except Exception as e:
+            print(e)
+            return False
+        
+    def get_room_name(self, id):
+        try:
+            return self.db.execute(
+                "SELECT Name FROM Room WHERE Id = ?", [id])[0][0]
         except Exception:
             return False
-        return True
-
+    
     def delete_room(self, id):
         try:
             self.db.execute('DELETE FROM Room WHERE id = ?', [id])
