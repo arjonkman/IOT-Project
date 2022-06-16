@@ -19,16 +19,15 @@ class Rooms():
             self.db.execute(
                 "UPDATE Room SET Name = ? WHERE Id = ?", [name, id])
         except Exception as e:
-            print(e)
             return False
-        
+
     def get_room_name(self, id):
         try:
             return self.db.execute(
                 "SELECT Name FROM Room WHERE Id = ?", [id])[0][0]
         except Exception:
             return False
-    
+
     def delete_room(self, id):
         try:
             self.db.execute('DELETE FROM Room WHERE id = ?', [id])
@@ -53,33 +52,36 @@ class Rooms():
 
             return ret_data
         except Exception as e:
-            print(e)
             return False
 
-    def latest_data(self, roomId):
+    def latest_data(self, none=None):
         i = 0
         try:
             while i < 10:
+                roomIds = self.db.execute(
+                    "SELECT Id FROM Room")
                 data = []
-                light = self.db.execute(
-                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "illuminance" ORDER BY Date DESC LIMIT 1;', [roomId])
-                temperature = self.db.execute(
-                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "temperature" ORDER BY Date DESC LIMIT 1;', [roomId])
-                humidity = self.db.execute(
-                    'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "humidity" ORDER BY Date DESC LIMIT 1;', [roomId])
-                print(light)
-                try:
-                    if light[0] is not None:
-                        data += [{'type': 'light', 'data': light[0][0]}]
-                    if temperature[0] is not None:
-                        data += [{'type': 'temperature',
-                                  'data': temperature[0][0]}]
-                    if humidity[0] is not None:
-                        data += [{'type': 'humidity', 'data': humidity[0][0]}]
-                except:
-                    i += 1
+                for roomId in roomIds:
+                    roomId = roomId[0]
+                    light = self.db.execute(
+                        'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "illuminance" ORDER BY Date DESC LIMIT 1;', [roomId])
+                    temperature = self.db.execute(
+                        'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "temperature" ORDER BY Date DESC LIMIT 1;', [roomId])
+                    humidity = self.db.execute(
+                        'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "humidity" ORDER BY Date DESC LIMIT 1;', [roomId])
+                    CO2 = self.db.execute(
+                        'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "CO2" ORDER BY Date DESC LIMIT 1;', [roomId])
+                    motion = self.db.execute(
+                        'SELECT Data FROM RoomData WHERE RoomId = ? AND DataType = "motion" ORDER BY Date DESC LIMIT 1;', [roomId])
+                    try:
+                        if light[0] is not None and temperature[0] is not None and humidity[0] is not None and CO2[0] is not None and motion[0] is not None:
+                            # add light to data on roomId
+                            data += [{'roomId': roomId, 'light': light[0], 'temperature': temperature[0],
+                                      'humidity': humidity[0], 'CO2': CO2[0], 'motion': motion[0]}]
+                    except Exception as e:
+                        i += 1
                 return data
-        except:
+        except Exception as e:
             return False
 
     def get_light(self, none=None):
