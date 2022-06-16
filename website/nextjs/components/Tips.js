@@ -31,6 +31,10 @@ export default function Tips() {
 						<Card.Body>
 							<Card.Title>{x.roomId}</Card.Title>
 							<Card.Text>{x.light}</Card.Text>
+							<Card.Text>{x.temperature}</Card.Text>
+							<Card.Text>{x.humidity}</Card.Text>
+							<Card.Text>{x.CO2}</Card.Text>
+							<Card.Text>{x.motion}</Card.Text>
 						</Card.Body>
 					</Card>
 				))
