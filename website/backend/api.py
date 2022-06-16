@@ -52,7 +52,7 @@ def index():
     if function.upper() == 'DATA':
         return jsonify(auth(request.args, rooms.data, request.args.get('id'), request.args.get('type')))
     if function.upper() == 'LATEST_DATA':
-        return jsonify(auth(request.args, rooms.latest_data, request.args.get('id')))
+        return jsonify(auth(request.args, rooms.latest_data), None)
     if function.upper() == 'GET_LIGHT':
         return jsonify(auth(request.args, rooms.get_light, request.args.get('id')))
     if function.upper() == 'DELETE_SESSION':
