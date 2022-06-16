@@ -1,7 +1,6 @@
 import { Row, Col, Card, Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import axios from 'axios';
 
 export default function Tips() {
 	const [cookies, setCookie, removeCookie] = useCookies(['session_id']);
