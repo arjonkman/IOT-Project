@@ -12,9 +12,9 @@ export default function Home() {
 			<Head>
 				<title>Ettudo - Home</title>
 			</Head>
-			<Row className="mx-0 p-4 justify-content-center text-center">
+			<Row className="mx-0 p-4 justify-content-center text-center" style={{  }}>
 				<Tips />
-				<Col xs={8}>
+				<Col xs={8} style={{  }}>
 					<b style={{ fontSize: '3rem' }}>Ruimtes</b>
 					<Search />
 				</Col>

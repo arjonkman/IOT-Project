@@ -24,23 +24,67 @@ export default function Tips() {
 	}, [rooms]);
 
 	useEffect(() => {
+		let tipsa = [];
+		
 		if (deets !== undefined) {
+				for (let i = 0; i < deets.length; i++) {
+					let tip_kam = ''
+					if (deets[i].CO2 > 1000) {
+						tip_kam = "Het C02-gehalte is te hoog. ";
+						
+					}
+						if (deets[i].CO2 > 2000) {
+							tip_kam += "Het C02-gehalte is gevaarlijk hoog. ";
+							
+						}
+							if (deets[i].light > 0 && deets[i].motion == 0) {
+								tip_kam += 'De lampen zijn aan, maar er is niemand in de kamer. ';
+								
+							}
+								if (deets[i].light > 400) {
+									tip_kam += 'Er is teveel licht in de kamer voor een goede concentratie ';
+									
+								}
+
+									if (deets[i].temperature > 23) {
+										tip_kam += 'De temperatuur is te hoog. ';
+										
+									}
+									
+										if (deets[i].temperature < 18) {
+											tip_kam += 'De temperatuur is te laag. ';
+											
+										}
+											if (deets[i].humidity > 80) {
+												tip_kam += 'De lucht is te zuur. ';
+												
+											}
+												if (deets[i].humidity < 40) {
+													tip_kam += 'De lucht is niet vochtig genoeg. ';
+													
+												}
+					tipsa.push([rooms[i][1], tip_kam])	
+				}
 			setTips(
-				deets.map((x) => (
+				tipsa.map((x) => (
 					<Card className="mb-3">
 						<Card.Body>
-							<Card.Title>{x.roomId}</Card.Title>
-							<Card.Text>{x.light}</Card.Text>
-							<Card.Text>{x.temperature}</Card.Text>
-							<Card.Text>{x.humidity}</Card.Text>
-							<Card.Text>{x.CO2}</Card.Text>
-							<Card.Text>{x.motion}</Card.Text>
+							<Card.Title>{x[0]}</Card.Title>
+							<Card.Text>{x[1]}</Card.Text>
 						</Card.Body>
 					</Card>
 				))
 			);
 		}
-	}, [deets]);
+	}, [deets, rooms]);
+	return (
+		<>
+				<Col style={{  }}>
+					<b style={{ fontSize: '3rem' }}>Tips</b>
 
-	return tips;
+					{tips}
+				</Col>
+		</>
+
+	);
 }
