@@ -26,7 +26,7 @@ export default function Tips() {
 	useEffect(() => {
 		let tipsa = [];
 		
-		if (deets !== undefined) {
+		if (deets !== undefined && deets !== undefined) {
 				for (let i = 0; i < deets.length; i++) {
 					let tip_kam = ''
 					if (deets[i].CO2 > 1000) {
@@ -63,8 +63,15 @@ export default function Tips() {
 													tip_kam += 'De lucht is niet vochtig genoeg. ';
 													
 												}
-					tipsa.push([rooms[i][1], tip_kam])	
+				
+					try {
+						tipsa.push([rooms[i][1], tip_kam])	
+					}
+					catch (e) {
+						console.log(e);
+					}
 				}
+			
 			setTips(
 				tipsa.map((x) => (
 					<Card className="mb-3">
