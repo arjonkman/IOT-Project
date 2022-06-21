@@ -65,7 +65,9 @@ export default function Tips() {
 												}
 				
 					try {
-						tipsa.push([rooms[i][1], tip_kam])	
+						if (tip_kam !== '') {
+						tipsa.push([rooms[i][1], tip_kam])
+						}	
 					}
 					catch (e) {
 						console.log(e);
