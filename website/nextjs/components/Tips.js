@@ -88,7 +88,7 @@ export default function Tips() {
 						tipsa.push([rooms[i][1], tip_kam, color]);
 						}	
 					}
-				} catch (e) {
+				 catch (e) {
 					console.log(e);
 				}
 			}
