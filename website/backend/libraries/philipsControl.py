@@ -42,3 +42,13 @@ class PhilipsControl:
 if __name__ == '__main__':
     philips = PhilipsControl()
     philips.brightness(0, 806)
+
+# * detect bridge
+# * find lights
+# * initialize lights
+# * turn lights on
+# * turn lights off
+# * change brightness of lights
+# TODO lights in the database
+# TODO front end so user can assign a light to a room
+# TODO calculations for the lights
