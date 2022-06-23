@@ -67,6 +67,8 @@ def index():
         return jsonify(auth(request.args, rooms.update_room_name, request.args.get('id'), request.args.get('name')))
     if function.upper() == 'GET_ROOM_NAME':
         return jsonify(auth(request.args, rooms.get_room_name, request.args.get('id')))
+    if function.upper() == 'GET_LIGHTS':
+        return jsonify(auth(request.args, rooms.get_lights, request.args.get('type')))
     return jsonify({'error': 'You have no access to this API'})
 
 

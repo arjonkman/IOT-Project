@@ -1,5 +1,6 @@
 import asyncio
 from hue import Bridge, Light
+from Database import Database
 
 
 class PhilipsControl:
@@ -14,6 +15,13 @@ class PhilipsControl:
         for light in self.info['lights']:
             lights.append(Light(light, ip='192.168.1.165',
                                 user='V1Mf-5ElO24L91YFigyb62iEeqTAJVspcGuYGln-'))
+            try:
+                db = Database('../database.db')
+                db.execute('INSERT INTO Light (Id, Name, RoomId) VALUES (?, ?, ?)', [
+                           light, self.info['lights'][light]['name'], 0])
+
+            except Exception as e:
+                pass
 
         return lights
 
@@ -33,7 +41,9 @@ class PhilipsControl:
                 raise ValueError('Brightness is too high')
             else:
                 brightness = brightness / lum
+                print(brightness)
                 brightness = int(brightness * 254)
+                print(brightness)
 
                 asyncio.run(self.lights[light_id].set_state(
                     {'on': True, 'bri': brightness}))
@@ -42,6 +52,7 @@ class PhilipsControl:
 if __name__ == '__main__':
     philips = PhilipsControl()
     philips.brightness(0, 806)
+    philips.brightness(1, 806)
 
 # * detect bridge
 # * find lights
@@ -49,6 +60,6 @@ if __name__ == '__main__':
 # * turn lights on
 # * turn lights off
 # * change brightness of lights
-# TODO lights in the database
+# * lights in the database
 # TODO front end so user can assign a light to a room
 # TODO calculations for the lights

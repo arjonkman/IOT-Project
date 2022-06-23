@@ -51,22 +51,41 @@ VALUES (
         'Building 1',
         1,
         1
-    ), (
+    ),
+    (
         'A81758FFFE053FDA',
         'Room 2',
         'Building 1',
         1,
         2
-    ), (
+    ),
+    (
         'A81758FFFE053FDB',
         'Room 3',
         'Building 1',
         1,
         3
-    ), (
+    ),
+    (
         'A81758FFFE053FDC',
         'Room 4',
         'Building 1',
         1,
         4
     );
+-- create lights table
+CREATE TABLE IF NOT EXISTS `Light` (
+    `Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `RoomId` TEXT,
+    `Name` TEXT,
+    FOREIGN KEY(`RoomId`) REFERENCES `Room`(`Id`)
+);
+-- create light data table
+CREATE TABLE IF NOT EXISTS `LightData` (
+    `Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `LightId` INTEGER,
+    `Data` INTEGER,
+    `Date` DATETIME,
+    UNIQUE(LightId, Date),
+    FOREIGN KEY(`LightId`) REFERENCES `Light`(`Id`)
+);
