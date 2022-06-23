@@ -100,3 +100,15 @@ class Rooms():
             return ret_data
         except Exception:
             return False
+
+    def get_lights(self, type='all'):
+        data = ''
+        try:
+            if type == 'all':
+                data = self.db.execute('SELECT * FROM Light')
+            elif type == 'unassigned':
+                data = self.db.execute(
+                    'SELECT * FROM Light WHERE RoomId = 0')
+            return data
+        except:
+            return False

@@ -1,9 +1,7 @@
 import { Row, Col, Card } from 'react-bootstrap';
 import Head from 'next/head';
 import Search from '../components/Search';
-import Map from '../components/Map';
 
-import { useCookies } from 'react-cookie';
 import Tips from '../components/Tips';
 
 export default function Home() {
@@ -12,9 +10,12 @@ export default function Home() {
 			<Head>
 				<title>Ettudo - Home</title>
 			</Head>
-			<Row className="mx-0 p-4 justify-content-center text-center" style={{  }}>
+			<Row
+				className="mx-0 p-4 justify-content-center text-center"
+				style={{}}
+			>
 				<Tips />
-				<Col xs={8} style={{  }}>
+				<Col xs={8} style={{}}>
 					<b style={{ fontSize: '3rem' }}>Ruimtes</b>
 					<Search />
 				</Col>
