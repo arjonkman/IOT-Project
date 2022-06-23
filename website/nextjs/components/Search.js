@@ -116,7 +116,7 @@ export default function Search() {
 
 	return (
 		<>
-			<form method="GET" action="/rooms" style={{ borderRadius: '15px' }}>
+			<form method="GET" action="/rooms" style={{ borderRadius: '15px', marginTop: '1rem' }}>
 				<Form.Control
 					onChange={handleChange}
 					type="text"
