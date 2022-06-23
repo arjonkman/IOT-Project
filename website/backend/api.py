@@ -19,10 +19,16 @@ sessions = Sessions(db)
 account = Account(db)
 data = Data(db, 'e-client-hanzehogeschool-01',
             'JZ!oeC13ZqjNOL(c3WhED*RvsQcU!ER5QJf')
-# print('Starting server...')
-# print('This can take a while...')
-# data.data_to_database()
-# schedule.every(1).minutes.do(data.latest_to_database)
+print('Starting server...')
+print('This can take a while...')
+data.data_to_database()
+
+
+def update_data():
+    data = Data(db, 'e-client-hanzehogeschool-01',
+                'JZ!oeC13ZqjNOL(c3WhED*RvsQcU!ER5QJf')
+    print(data.bearer)
+    data.latest_to_database(data.bearer, data.db)
 
 
 def auth(parameters, func, *args):
@@ -65,6 +71,7 @@ def index():
 
 
 def run():
+    schedule.every(1).minutes.do(update_data)
     while True:
         schedule.run_pending()
         time.sleep(1)

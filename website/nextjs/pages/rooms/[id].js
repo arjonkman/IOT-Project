@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useCookies } from 'react-cookie';
 import Chart from '../../components/Chart';
+import Tips from '../../components/Tips';
 
 export default function id() {
 	const router = useRouter();
@@ -40,6 +41,11 @@ export default function id() {
 	return (
 		<main style={{ minHeight: '100vh' }}>
 			<div className="container">
+				<div className="row">
+					<div className="col-md-12">
+						<Tips />
+					</div>
+				</div>
 				<div className="row">
 					<div className="col">
 						<div className="row">

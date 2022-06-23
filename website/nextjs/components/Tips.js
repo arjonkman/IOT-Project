@@ -88,11 +88,11 @@ export default function Tips() {
 						tipsa.push([rooms[i][1], tip_kam, color]);
 						}	
 					}
-					catch (e) {
-						console.log(e);
-					}
+				} catch (e) {
+					console.log(e);
 				}
-			
+			}
+
 			setTips(
 				tipsa.map((x) => (
 					<Card style={{ border: '5px solid white' }} className="mb-3">
@@ -112,6 +112,5 @@ export default function Tips() {
 					<Col style={{ marginTop: '1rem' }}>{tips}</Col>
 				</Col>
 		</>
-
 	);
 }
