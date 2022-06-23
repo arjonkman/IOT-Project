@@ -66,10 +66,11 @@ class Data:
                                     pass
         return
 
-    def latest_to_database(self):
+    @staticmethod
+    def latest_to_database(bearer, db):
         url = 'https://api.creamcookies.net/hs/readLatestValue'
         headers = {
-            'Authorization': 'Bearer ' + self.bearer,
+            'Authorization': 'Bearer ' + bearer,
             'Content-Type': 'text/plain'
         }
         payload = "ver:\"3.0\"\r\nid"
@@ -91,7 +92,7 @@ class Data:
                         for roww in csvFile:
                             if roww[0] == row[0]:
                                 try:
-                                    self.db.execute('INSERT INTO RoomData (RoomId, DataType, Data, Date) VALUES (?, ?, ?, ?)', [
+                                    db.execute('INSERT INTO RoomData (RoomId, DataType, Data, Date) VALUES (?, ?, ?, ?)', [
                                         roww[1][:16], roww[10], row[2], row[1]])
                                 except sqlite3.IntegrityError:
                                     pass

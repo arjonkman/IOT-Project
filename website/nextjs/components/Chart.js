@@ -40,6 +40,7 @@ export default function Chart() {
 					// convert date to string in format 'weekday, day, month, year'
 					const dateString = `${date.toLocaleString('en-US', {
 						hour: 'numeric',
+						minute: 'numeric',
 						weekday: 'long',
 						day: 'numeric',
 						month: 'long',
