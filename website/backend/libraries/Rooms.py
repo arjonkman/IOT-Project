@@ -112,3 +112,13 @@ class Rooms():
             return data
         except:
             return False
+
+    def assing_light(self, lightId, roomId):
+        try:
+            print(roomId, lightId)
+            data = self.db.execute(
+                "UPDATE Light SET RoomId = ? WHERE Id = ?", [roomId, lightId])
+            print(data)
+            return self.get_lights('unassigned')
+        except Exception as e:
+            return False

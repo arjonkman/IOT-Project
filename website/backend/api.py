@@ -21,14 +21,14 @@ data = Data(db, 'e-client-hanzehogeschool-01',
             'JZ!oeC13ZqjNOL(c3WhED*RvsQcU!ER5QJf')
 print('Starting server...')
 print('This can take a while...')
-data.data_to_database()
+# data.data_to_database()
 
 
 def update_data():
-    data = Data(db, 'e-client-hanzehogeschool-01',
-                'JZ!oeC13ZqjNOL(c3WhED*RvsQcU!ER5QJf')
-    print(data.bearer)
-    data.latest_to_database(data.bearer, data.db)
+    # data = Data(db, 'e-client-hanzehogeschool-01',
+    #             'JZ!oeC13ZqjNOL(c3WhED*RvsQcU!ER5QJf')
+    # data.latest_to_database(data.bearer, data.db)
+    pass
 
 
 def auth(parameters, func, *args):
@@ -69,6 +69,8 @@ def index():
         return jsonify(auth(request.args, rooms.get_room_name, request.args.get('id')))
     if function.upper() == 'GET_LIGHTS':
         return jsonify(auth(request.args, rooms.get_lights, request.args.get('type')))
+    if function.upper() == 'ASSIGN_LIGHT':
+        return jsonify(auth(request.args, rooms.assing_light, request.args.get('room'), request.args.get('light')))
     return jsonify({'error': 'You have no access to this API'})
 
 
