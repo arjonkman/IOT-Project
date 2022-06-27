@@ -1,12 +1,14 @@
 import { Row, Col, Card, Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
+import Link from 'next/link';
 
 export default function Tips() {
 	const [cookies, setCookie, removeCookie] = useCookies(['session_id']);
 	const [rooms, setRooms] = useState([]);
 	const [deets, setDeets] = useState(undefined);
 	const [tips, setTips] = useState(<></>);
+	const [roomID, setRoomID] = useState('');
 	useEffect(() => {
 		fetch(
 			`http://localhost:2053/api?function=GET_ROOMS&session_id=${cookies['session_id']}&room=all`
@@ -37,11 +39,6 @@ export default function Tips() {
 						}
 						
 					}
-						if (deets[i].CO2 > 2000) {
-							tip_kam += "Het C02-gehalte is gevaarlijk hoog. ";
-							color = 'red';
-							
-						}
 							if (deets[i].light > 0 && deets[i].motion == 0) {
 								tip_kam += 'De lampen zijn aan, maar er is niemand in de kamer. ';
 								color = 'red';
@@ -85,7 +82,7 @@ export default function Tips() {
 				
 					try {
 						if (tip_kam !== '') {
-						tipsa.push([rooms[i][1], tip_kam, color]);
+						tipsa.push([rooms[i][0] ,rooms[i][1], tip_kam, color]);
 						}	
 					}
 				 catch (e) {
@@ -94,14 +91,21 @@ export default function Tips() {
 			}
 
 			setTips(
-				tipsa.map((x) => (
-					<Card style={{ border: '5px solid white' }} className="mb-3">
-						<Card.Body style={{ backgroundColor:x[2], opacity: '0.9' }}>
-							<Card.Title>{x[0]}</Card.Title>
-							<Card.Text>{x[1]}</Card.Text>
-						</Card.Body>
-					</Card>
-				))
+				tipsa.map((x) => {
+					let id = x[0];
+					let href = `/rooms/${id}`;
+					return(
+						<Link href={href}>
+							<Card  style={{ border: '5px solid white' }} className="mb-3">
+								<Card.Body style={{ backgroundColor:x[3], opacity: '0.9' }}>
+									<Card.Title>{x[1]}</Card.Title>
+									<Card.Text>{x[2]}</Card.Text>
+								</Card.Body>
+							</Card>
+						</Link>
+					)
+				}
+				)
 			);
 		}
 	}, [deets, rooms]);
