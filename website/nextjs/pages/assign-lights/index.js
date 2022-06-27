@@ -77,7 +77,9 @@ export default function AssignLights() {
 		)
 			.then((res) => res.json())
 			.then(
-				(data) => {},
+				(data) => {
+					setLights(data);
+				},
 				(err) => {
 					console.log(err);
 				}
@@ -120,34 +122,37 @@ export default function AssignLights() {
 	}
 
 	useEffect(() => {
-		setLightsHTML(
-			<Row
-				xs={2}
-				md={4}
-				lg={6}
-				mt={4}
-				className="justify-content-md-center"
-			>
-				{lights.map((light) => {
-					return (
-						<Card key={light[0]}>
-							<Card.Body>
-								<Card.Title>{light[2]}</Card.Title>
-								<Card.Text>{light[0]}</Card.Text>
-								<Card.Footer>
-									<OffCanvasExample
-										key={light[0]}
-										placement="top"
-										name="Click to assign this light to a room."
-										id={light[0]}
-									/>
-								</Card.Footer>
-							</Card.Body>
-						</Card>
-					);
-				})}
-			</Row>
-		);
+		if (lights !== []) {
+			console.log(lights);
+			setLightsHTML(
+				<Row
+					xs={2}
+					md={4}
+					lg={6}
+					mt={4}
+					className="justify-content-md-center"
+				>
+					{lights.map((light) => {
+						return (
+							<Card key={light[0]}>
+								<Card.Body>
+									<Card.Title>{light[2]}</Card.Title>
+									<Card.Text>{light[0]}</Card.Text>
+									<Card.Footer>
+										<OffCanvasExample
+											key={light[0]}
+											placement="top"
+											name="Click to assign this light to a room."
+											id={light[0]}
+										/>
+									</Card.Footer>
+								</Card.Body>
+							</Card>
+						);
+					})}
+				</Row>
+			);
+		}
 	}, [lights]);
 
 	return (

@@ -16,8 +16,9 @@ class Rooms():
 
     def update_room_name(self, id, name):
         try:
-            self.db.execute(
+            data = self.db.execute(
                 "UPDATE Room SET Name = ? WHERE Id = ?", [name, id])
+            print(data)
         except Exception as e:
             return False
 
@@ -113,12 +114,18 @@ class Rooms():
         except:
             return False
 
-    def assing_light(self, lightId, roomId):
+    def assing_light(self, roomId, lightId):
         try:
             print(roomId, lightId)
-            data = self.db.execute(
+            self.db.execute(
                 "UPDATE Light SET RoomId = ? WHERE Id = ?", [roomId, lightId])
-            print(data)
             return self.get_lights('unassigned')
         except Exception as e:
+            return False
+
+    def reset(self):
+        try:
+            self.db.execute('UPDATE Light SET RoomId = 0')
+            return self.get_lights('unassigned')
+        except:
             return False
