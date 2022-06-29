@@ -4,9 +4,6 @@ from hue import Bridge, Light
 from Database import Database
 
 
-db = Database('../database.db')
-
-
 class PhilipsControl:
     def __init__(self):
         self.bridge = Bridge(ip='192.168.1.165',
@@ -112,10 +109,56 @@ class PhilipsControl:
             L += self.calculate_total_power(db, i)
         return L
 
-    def max_wattage(self):
+    def max_wattage(self, db):
+        max = {}
+        total = 0
         for i in range(len(self.lights)):
-            max = self.info['lights'][f'{i+1}']['capabilities']['control']['maxlumen']
-            
+            lum = self.info['lights'][f'{i+1}']['capabilities']['control']['maxlumen']
+
+            lm_pw = 80
+            watt = lum / lm_pw
+            max[i] = watt
+
+            max[f'{i}data'] = db.execute(
+                'SELECT Data, Date FROM LightData WHERE LightId = ?', [i+1])
+
+        for i in range(len(self.lights)):
+
+            for id in range(len(max[f'{i}data'])):
+                if id != len(max[f'{i}data'])-1:
+                    if max[f'{i}data'][id][0] != 0:
+                        past = max[f'{i}data'][id][1]
+                        current = max[f'{i}data'][id+1][1]
+
+                        # convert to datetime object
+                        past = datetime.datetime.strptime(
+                            past, r'%Y-%m-%dT%H:%M:%SZ Amsterdam')
+                        current = datetime.datetime.strptime(
+                            current, r'%Y-%m-%dT%H:%M:%SZ Amsterdam')
+
+                        difference = current - past
+
+                        wattUsage = (
+                            max[i]*difference.total_seconds())/3600
+
+                        total += wattUsage
+
+                else:
+                    if max[f'{i}data'][id][0] != 0:
+                        past = max[f'{i}data'][id][1]
+                        current = datetime.datetime.now()
+
+                        # convert to datetime object
+                        past = datetime.datetime.strptime(
+                            past, r'%Y-%m-%dT%H:%M:%SZ Amsterdam')
+
+                        difference = current - past
+
+                        wattUsage = (
+                            max[i]*difference.total_seconds())/3600
+
+                        total += wattUsage
+        return total
 
 
 # * detect bridge

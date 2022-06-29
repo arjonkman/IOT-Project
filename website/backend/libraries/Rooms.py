@@ -133,7 +133,7 @@ class Rooms():
             return self.get_lights('unassigned')
         except:
             return False
-            
+
     def get_wattage(self):
         philps = PhilipsControl()
-        return philps.get_wattage()
+        return {'efficient': philps.wattage(self.db), 'max': philps.max_wattage(self.db)}
