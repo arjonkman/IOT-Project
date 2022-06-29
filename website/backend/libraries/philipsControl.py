@@ -48,6 +48,10 @@ class PhilipsControl:
                 asyncio.run(self.lights[light_id].set_state(
                     {'on': True, 'bri': brightness}))
 
+    # lm_pw = 80
+    # lum = self.info['lights'][f'{light_id + 1}']['capabilities']['control']['maxlumen']
+    # watt = lum / lm_pw
+
 
 if __name__ == '__main__':
     philips = PhilipsControl()
@@ -61,5 +65,7 @@ if __name__ == '__main__':
 # * turn lights off
 # * change brightness of lights
 # * lights in the database
-# TODO front end so user can assign a light to a room
-# TODO calculations for the lights
+# * front end so user can assign a light to a room
+# * calculations for the lights
+
+

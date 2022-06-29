@@ -25,14 +25,41 @@ export default function Tips() {
 			.then((data) => setDeets(data[0]));
 	}, [rooms]);
 
+	// function light_and_motion(id) {
+	// 	let light = 0;
+	// 	let motion = 0;
+
+	// 	if (id != undefined) {
+	// 		fetch(
+	// 			`http://localhost:2053/api?function=DATA&session_id=${cookies['session_id']}&id=${id}&type=illuminance`
+	// 		)
+	// 			.then((response) => response.json())
+	// 			.then(function(data) {
+	// 				console.log(data)
+	// 				const light = data[0];
+	// 			}
+	// 		);
+	// 		fetch(
+	// 			`http://localhost:2053/api?function=DATA&session_id=${cookies['session_id']}&id=${id}&type=motion`
+	// 		)
+	// 			.then((response) => response.json())
+	// 			.then(function(data) {
+	// 				console.log(data[0])
+	// 				const motion = data[0];
+	// 			}
+	// 		);
+	// }}
+
 	useEffect(() => {
 		let tipsa = [];
 		
-		if (deets !== undefined && rooms !== undefined) {
+		if (deets !== undefined && rooms !== []) {
 				for (let i = 0; i < deets.length; i++) {
-					let tip_kam = ''
+					let tip_kam = '';
 					let color = ''
+					let duration = '';
 					if (deets[i].CO2 > 1000) {
+
 						tip_kam = "Doe een raam open, het C02-gehalte is te hoog. ";
 						if (color != 'red') {
 							color = 'orange';
@@ -40,6 +67,7 @@ export default function Tips() {
 						
 					}
 							if (deets[i].light > 0 && deets[i].motion == 0) {
+								// duration = light_and_motion(rooms[i][0]);
 								tip_kam += 'De lampen zijn aan, maar er is niemand in de kamer. ';
 								color = 'red';
 
@@ -96,7 +124,7 @@ export default function Tips() {
 					let href = `/rooms/${id}`;
 					return(
 						<Link href={href}>
-							<Card  style={{ border: '5px solid white' }} className="mb-3">
+							<Card  style={{ border: '5px solid white', cursor: 'pointer' }} className="mb-3">
 								<Card.Body style={{ backgroundColor:x[3], opacity: '0.9' }}>
 									<Card.Title>{x[1]}</Card.Title>
 									<Card.Text>{x[2]}</Card.Text>
@@ -113,7 +141,7 @@ export default function Tips() {
 		<>
 				<Col style={{  }}>
 					<b style={{ fontSize: '3rem' }}>Tips</b>
-					<Col style={{ marginTop: '1rem' }}>{tips}</Col>
+					<Col style={{ marginTop: '1rem'}}>{tips}</Col>
 				</Col>
 		</>
 	);
