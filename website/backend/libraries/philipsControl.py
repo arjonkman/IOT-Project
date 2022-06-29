@@ -112,6 +112,11 @@ class PhilipsControl:
             L += self.calculate_total_power(db, i)
         return L
 
+    def max_wattage(self):
+        for i in range(len(self.lights)):
+            max = self.info['lights'][f'{i+1}']['capabilities']['control']['maxlumen']
+            
+
 
 # * detect bridge
 # * find lights

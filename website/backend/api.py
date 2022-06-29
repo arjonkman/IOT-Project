@@ -73,6 +73,8 @@ def index():
         return jsonify(auth(request.args, rooms.assing_light, request.args.get('room'), request.args.get('light')))
     if function.upper() == 'RESET':
         return jsonify(auth(request.args, rooms.reset))
+    if function.upper() == 'GET_WATTAGE':
+        return jsonify(auth(request.args, rooms.get_wattage, request.args.get('id')))
     return jsonify({'error': 'You have no access to this API'})
 
 

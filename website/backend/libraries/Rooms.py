@@ -1,4 +1,5 @@
 import datetime
+from libraries.philipsControl import PhilipsControl
 
 
 class Rooms():
@@ -132,3 +133,7 @@ class Rooms():
             return self.get_lights('unassigned')
         except:
             return False
+            
+    def get_wattage(self):
+        philps = PhilipsControl()
+        return philps.get_wattage()
