@@ -121,7 +121,7 @@ export default function id() {
 			setTips(
 				tipsa.map((x) => (
 					<Card style={{ border: '5px solid white' }} className="mb-3">
-						<Card.Body style={{ backgroundColor:x[2], opacity: '0.9' }}>
+						<Card.Body className='text-center' style={{ backgroundColor:x[2], opacity: '0.9' }}>
 							<Card.Text>{x[1]}</Card.Text>
 						</Card.Body>
 					</Card>
