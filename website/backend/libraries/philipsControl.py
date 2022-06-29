@@ -1,6 +1,10 @@
 import asyncio
+import datetime
 from hue import Bridge, Light
 from Database import Database
+
+
+db = Database('../database.db')
 
 
 class PhilipsControl:
@@ -31,7 +35,25 @@ class PhilipsControl:
     def off(self, light_id):
         asyncio.run(self.lights[light_id].power_off())
 
-    def brightness(self, light_id, brightness):
+    def brightness(self, light_id, brightness, db):
+
+        lm_pw = 80
+        lum = brightness
+        watt = lum / lm_pw
+
+        now = datetime.datetime.now()
+        nowutc = datetime.datetime.strftime(
+            now, r'%Y-%m-%dT%H:%M:%SZ Amsterdam')
+        try:
+            current_watt = db.execute(
+                'SELECT Data FROM LightData WHERE LightId = ? ORDER BY Date DESC LIMIT 1', [light_id+1])[0][0]
+        except:
+            current_watt = -1
+
+        if current_watt != watt:
+            db.execute('INSERT INTO LightData (LightId, Data, Date) VALUES (?, ?, ?)', [
+                       light_id+1, watt, nowutc])
+
         if brightness == 0:
             self.off(light_id)
         else:
@@ -40,23 +62,56 @@ class PhilipsControl:
             if brightness > lum:
                 raise ValueError('Brightness is too high')
             else:
+                if self.info['lights'][f'{light_id + 1}']['state']['on'] == False:
+                    self.on(light_id)
                 brightness = brightness / lum
-                print(brightness)
                 brightness = int(brightness * 254)
-                print(brightness)
 
                 asyncio.run(self.lights[light_id].set_state(
                     {'on': True, 'bri': brightness}))
 
-    # lm_pw = 80
-    # lum = self.info['lights'][f'{light_id + 1}']['capabilities']['control']['maxlumen']
-    # watt = lum / lm_pw
+    def calculate_total_power(self, db, light_id):
+        total = 0
+        data = db.execute(
+            'SELECT Data, Date FROM LightData WHERE LightId = ?', [light_id])
 
+        for i in range(len(data)):
+            if i != len(data)-1:
+                past = data[i][1]
+                current = data[i+1][1]
 
-if __name__ == '__main__':
-    philips = PhilipsControl()
-    philips.brightness(0, 806)
-    philips.brightness(1, 806)
+                # convert to datetime object
+                past = datetime.datetime.strptime(
+                    past, r'%Y-%m-%dT%H:%M:%SZ Amsterdam')
+                current = datetime.datetime.strptime(
+                    current, r'%Y-%m-%dT%H:%M:%SZ Amsterdam')
+
+                difference = current - past
+
+                wattUsage = (data[i][0]*difference.total_seconds())/3600
+                total += wattUsage
+
+            else:
+                past = data[i][1]
+                current = datetime.datetime.now()
+
+                # convert to datetime object
+                past = datetime.datetime.strptime(
+                    past, r'%Y-%m-%dT%H:%M:%SZ Amsterdam')
+
+                difference = current - past
+
+                wattUsage = (data[i][0]*difference.total_seconds())/3600
+                total += wattUsage
+
+        return total
+
+    def wattage(self, db):
+        L = 0
+        for i in range(len(self.lights)):
+            L += self.calculate_total_power(db, i)
+        return L
+
 
 # * detect bridge
 # * find lights
@@ -67,5 +122,3 @@ if __name__ == '__main__':
 # * lights in the database
 # * front end so user can assign a light to a room
 # * calculations for the lights
-
-
