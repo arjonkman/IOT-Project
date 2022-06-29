@@ -110,6 +110,9 @@ class Rooms():
             elif type == 'unassigned':
                 data = self.db.execute(
                     'SELECT * FROM Light WHERE RoomId = 0')
+            else:
+                data = self.db.execute(
+                    'SELECT * FROM Light WHERE RoomId = ?', [type])
             return data
         except:
             return False
