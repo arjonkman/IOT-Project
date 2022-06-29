@@ -81,7 +81,7 @@ export default function Chart() {
 	}, [realData]);
 
 	return (
-		<main style={{ minHeight: '100vh' }}>
+		<main style={{ minHeight: 'auto' }}>
 			<div className="container">
 				<div className="row">
 					{/* buttons to select data type (CO2, Humidity, Temperature, Motion, Illuminance) */}
