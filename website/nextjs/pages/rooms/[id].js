@@ -124,7 +124,7 @@ export default function id() {
 						className="mb-3"
 					>
 						<Card.Body
-							style={{ backgroundColor: x[2], opacity: '0.9' }}
+							className='text-center' style={{ backgroundColor: x[2], opacity: '0.9' }}
 						>
 							<Card.Text>{x[1]}</Card.Text>
 						</Card.Body>
