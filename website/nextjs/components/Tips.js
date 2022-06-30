@@ -66,7 +66,7 @@ export default function Tips() {
 						}
 						
 					}
-							if (deets[i].light > 0 && deets[i].motion == 0) {
+							if (deets[i].light > 50 && deets[i].motion == 0) {
 								// duration = light_and_motion(rooms[i][0]);
 								tip_kam += 'De lampen zijn aan, maar er is niemand in de kamer. ';
 								color = 'red';

@@ -62,7 +62,7 @@ export default function id() {
 						color = 'orange';
 					}
 				}
-				if (deets[i].light > 0 && deets[i].motion == 0) {
+				if (deets[i].light > 50 && deets[i].motion == 0) {
 					tip_kam +=
 						'De lampen zijn aan, maar er is niemand in de kamer. ';
 					color = 'red';
