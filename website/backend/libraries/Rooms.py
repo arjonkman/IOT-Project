@@ -56,6 +56,29 @@ class Rooms():
         except Exception as e:
             return False
 
+    def motion_light_data(self, roomId):
+        data = ''
+        ret_data = []
+        try:
+            data = self.db.execute(
+                "SELECT Data, Date FROM RoomData WHERE RoomId = ? AND DataType = ? OR DataType = ? ORDER BY Date ASC LIMIT 1000", [roomId, 'illuminance', 'motion'])
+            # data += self.db.execute(
+            #         "SELECT Data, Date FROM RoomData WHERE RoomId = ? AND DataType = ? ORDER BY Date ASC LIMIT 1000", [roomId, 'motion'])
+                    
+            for i in data:
+                time = '%Y-%m-%dT%H:%M:%S-00:00 Amsterdam'
+                date = datetime.datetime.strptime(
+                    i[1], time)
+                date = date.strftime('%Y-%m-%dT%H:%M:%S-00:00')
+                ret_data.append({'data': i[0],
+                                 'date': date})
+            ret_data = ret_data[::-1]
+
+            return ret_data
+        except Exception as e:
+            print(e)
+            return False
+
     def latest_data(self, none=None):
         i = 0
         try:
@@ -136,4 +159,4 @@ class Rooms():
 
     def get_wattage(self):
         philps = PhilipsControl()
-        return {'efficient': philps.wattage(self.db), 'max': philps.max_wattage(self.db)}
+        return philps.get_wattage()
