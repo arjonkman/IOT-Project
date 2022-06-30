@@ -25,6 +25,7 @@ export default function Search() {
 
 	function color_percentage() {
 		if (roomData !== '') {
+			console.log(roomData);
 			setColor(
 				Object.assign(
 					{},
@@ -42,8 +43,7 @@ export default function Search() {
 		color_percentage();
 	}, [roomData]);
 
-	useEffect(() => {
-	}, [posts]);
+	useEffect(() => {}, [posts]);
 
 	function getData(query) {
 		var return_data = [];
@@ -116,7 +116,11 @@ export default function Search() {
 
 	return (
 		<>
-			<form method="GET" action="/rooms" style={{ borderRadius: '15px', marginTop: '1rem' }}>
+			<form
+				method="GET"
+				action="/rooms"
+				style={{ borderRadius: '15px', marginTop: '1rem' }}
+			>
 				<Form.Control
 					onChange={handleChange}
 					type="text"

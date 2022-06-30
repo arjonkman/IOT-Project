@@ -64,7 +64,7 @@ class Rooms():
                 "SELECT Data, Date FROM RoomData WHERE RoomId = ? AND DataType = ? OR DataType = ? ORDER BY Date ASC LIMIT 1000", [roomId, 'illuminance', 'motion'])
             # data += self.db.execute(
             #         "SELECT Data, Date FROM RoomData WHERE RoomId = ? AND DataType = ? ORDER BY Date ASC LIMIT 1000", [roomId, 'motion'])
-                    
+
             for i in data:
                 time = '%Y-%m-%dT%H:%M:%S-00:00 Amsterdam'
                 date = datetime.datetime.strptime(
@@ -158,5 +158,5 @@ class Rooms():
             return False
 
     def get_wattage(self):
-        philps = PhilipsControl()
-        return philps.get_wattage()
+        philps = PhilipsControl(self.db)
+        return {'efficient': philps.wattage(), 'max': philps.max_wattage()}
