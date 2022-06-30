@@ -1,7 +1,7 @@
 import asyncio
 import datetime
 from hue import Bridge, Light
-from Database import Database
+# from Database import Database
 
 
 class PhilipsControl:
@@ -162,17 +162,16 @@ class PhilipsControl:
 
 
 if __name__ == '__main__':
-    philips = PhilipsControl(Database('../database.db'))
-    philips.brightness(0, 500)
-    philips.brightness(1, 500)
+    # philips = PhilipsControl(Database('../database.db'))
+    # philips.brightness(0, 500)
+    # philips.brightness(1, 500)
 
-
-# * detect bridge
-# * find lights
-# * initialize lights
-# * turn lights on
-# * turn lights off
-# * change brightness of lights
-# * lights in the database
-# * front end so user can assign a light to a room
-# * calculations for the lights
+    # * detect bridge
+    # * find lights
+    # * initialize lights
+    # * turn lights on
+    # * turn lights off
+    # * change brightness of lights
+    # * lights in the database
+    # * front end so user can assign a light to a room
+    # * calculations for the lights
