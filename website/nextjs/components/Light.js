@@ -32,7 +32,7 @@ export default function Light(id) {
 	if (light !== []) {
 		console.log(light);
 		return (
-			<div>
+			<div style={{ marginTop: '3rem' }}>
 				<h1>Lights</h1>
 				<ul>
 					{light.map((light) => (

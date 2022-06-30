@@ -126,7 +126,7 @@ export default function id() {
 						<Card.Body
 							className='text-center' style={{ backgroundColor: x[2], opacity: '0.9' }}
 						>
-							<Card.Text>{x[1]}</Card.Text>
+							<Card.Text style={{ fontSize: '1.1rem' }}>{x[1]}</Card.Text>
 						</Card.Body>
 					</Card>
 				))
@@ -139,7 +139,7 @@ export default function id() {
 			<div className="container">
 				<div className="row">
 					<div className="col">
-						<div className="row">
+						<div style={{ marginTop: '1rem', marginBottom: '1rem' }} className="row">
 							<h1>
 								{roomName}
 								<button

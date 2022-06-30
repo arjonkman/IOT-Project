@@ -60,14 +60,17 @@ export default function Navigation() {
 			<Navbar.Brand href="/">Ettudo</Navbar.Brand>
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">
-				<Nav className="me-auto">
+				<Nav className="mx-auto">
 					<Nav.Link href="/">Home</Nav.Link>
+					<Nav.Link href="/energy">Energy</Nav.Link>
 					{wbutton}
 				</Nav>
+				
 				<Nav>
 					{/* Check if you are logged in or not, if not then show the login button */}
 					{button}
 				</Nav>
+				
 			</Navbar.Collapse>
 		</Navbar>
 	);

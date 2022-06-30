@@ -86,9 +86,11 @@ export default function Chart() {
 				<div className="row">
 					{/* buttons to select data type (CO2, Humidity, Temperature, Motion, Illuminance) */}
 					<div className="col-md-4">
-						<div
+					<h2 style={{ marginBottom:"1rem", color: 'blue', fontSize: '2rem' }}>{dataType.charAt(0).toUpperCase() + dataType.slice(1)} Graph</h2>
+						<div 
 							className="btn-group btn-group-toggle"
 							data-toggle="buttons"
+							style={{ marginBottom: '1rem' }}
 						>
 							<label
 								className={`btn btn-secondary ${
@@ -170,7 +172,7 @@ export default function Chart() {
 				</div>
 				<div className="row">
 					<div className="col-md-12">
-						<h2>{dataType} Graph</h2>
+						
 						{graph}
 					</div>
 				</div>
