@@ -165,7 +165,7 @@ if __name__ == '__main__':
     # philips = PhilipsControl(Database('../database.db'))
     # philips.brightness(0, 500)
     # philips.brightness(1, 500)
-
+    pass
     # * detect bridge
     # * find lights
     # * initialize lights
